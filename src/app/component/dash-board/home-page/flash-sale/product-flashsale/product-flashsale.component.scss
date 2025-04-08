@@ -1,0 +1,187 @@
+@import "src/app/app.component";
+
+.productItem {
+  min-width: 160px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 4px;
+  overflow: hidden;
+  //transition: box-shadow 0.3s;
+  @include for-size("tablet") {
+    //width: 250px !important;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+  }
+
+  @include for-size("phone-sm") {
+    //width: 250px !important;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+  }
+
+
+  &:hover {
+    cursor: pointer;
+    border-color: $accentFirstColor;
+  }
+
+  &__thumbnail-item {
+    display: flex;
+    //height: 100px;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    @include for-size("phone-sm") {
+      width: 100%;
+      height: 130px;
+    }
+    &--icons-hot {
+      position: absolute;
+      top: -1px;
+      z-index: 2;
+      max-width: 48px;
+      left: -7px;
+    }
+
+    &--avatar {
+      position: static;
+      overflow: hidden;
+      align-self: center;
+      object-fit: cover;
+      transition: transform 0.3s;
+      width: 240px;
+      height: 240px;
+      @include for-size("phone-sm") {
+         width: 100%;
+         height: 130px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+
+      }
+
+      &:hover {
+        transform: scale(1.2);
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+
+
+  &__entry {
+    padding: 12px 10px 5px;
+    position: relative;
+    z-index: 1;
+    @include for-size("phone-sm"){
+      width: calc(100vw / 3);
+    }
+
+    &:hover {
+      overflow: hidden;
+    }
+
+    &--title {
+      width: 100%;
+      font-weight: 600;
+      font-size: 12px;
+      color: $headerBackground;
+      line-height: 1.5;
+      margin-bottom: 12px;
+
+      @include for-size("phone-sm") {
+        font-size: 12px;
+      }
+    }
+
+    &--price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+
+      del {
+        padding-left: 4px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        color: #ee9848;
+        label {
+          text-decoration: line-through;
+        }
+        @include for-size("phone-sm") {
+          font-size: 12px;
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      ins {
+        padding-left: 4px;
+        font-weight: 600;
+        font-size: 18px;
+        color: #ff7b00;
+        display: block;
+        line-height: 24px;
+        text-decoration: none;
+        @include for-size("phone-sm") {
+          font-size: 14px;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+
+    &--order {
+      font-size: 9px;
+      line-height: 1.2;
+      margin-top: 7px;
+      height: 34px;
+      padding: 4px 9px;
+      border-radius: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      color: white;
+      background: #ff7b00;
+      border-color: #ff7b00;
+    }
+
+    &--icons {
+      width: 16px;
+      margin-right: 7px;
+
+      img {
+        height: auto;
+        max-width: 100%;
+      }
+    }
+
+    &--name {
+    }
+  }
+
+  &__products-sold {
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    bottom: 6px;
+    font-size: 12px;
+    color: #262626;
+  }
+}
+
+.appProgress{
+  @include for-size("phone-sm"){
+    width: calc(100vw / 3);
+  }
+}
+

@@ -1,0 +1,422 @@
+@import '../../../app.component';
+@import '../../../colors';
+@import "bootstrap";
+
+
+.shopping-cart {
+  display: flex;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+
+  &__left {
+    flex: 4;
+    margin-top: 10px;
+    padding: 6px;
+
+    @include for-size("tablet") {
+     flex: initial;
+    }
+  }
+
+  &__right {
+    flex: 3;
+    margin-top: 10px;
+    padding: 6px;
+  }
+
+  &__product {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+
+    @include for-size("phone-sm") {
+      max-width: 397px;
+    }
+
+  }
+
+  &__header-label {
+    font-weight: bold;
+  }
+
+
+  &__bottom-label {
+    margin: 8px;
+    min-width: 80px;
+  }
+
+  &__bottom-input {
+    margin: 8px;
+    width: 120px;
+  }
+
+
+  &__footer {
+    background-color: #FFFFFF;
+    width: 100%;
+    margin: 10px;
+    padding: 6px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &--box {
+      //min-width: 25%;
+      width: 40%;
+      min-width: 40%;
+      @include for-size("tablet") {
+        width: 40%;
+        min-width: 40%;
+      }
+      @include for-size("phone-sm") {
+        width: 40%;
+        min-width: 40%;
+      }
+
+
+      img {
+        height: 52px;
+        width: 52px;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      p {
+        color: #979797;
+        max-width: 200px;
+      }
+    }
+  }
+
+  &__detail {
+    display: flex;
+    margin-bottom: 10px;
+    @include for-size("phone-sm") {
+      flex-direction: column;
+    }
+  }
+
+  &__thumb {
+    display: flex;
+    flex: 1;
+    height: 150px;
+    width: 150px;
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit: contain;
+      @include for-size("phone-sm") {
+        height: auto;
+        width: 100%;
+      }
+    }
+    @include for-size("tablet") {
+      height: 150px;
+      width: auto;
+    }
+    @include for-size("phone-sm") {
+      height: 75px;
+      width: auto;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 3;
+  }
+
+  &__remove {
+    width: 100%;
+    align-self: center;
+    margin-top: 8px;
+    a {
+      margin: 4px;
+      text-decoration: none;
+      color: $accentColor;
+    }
+
+  }
+
+  &__bottom {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    @include for-size("phone-sm") {
+      justify-content: flex-start;
+
+    }
+
+  }
+
+  &__name {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+    &--main {
+      font-weight: 600;
+      margin: 4px;
+      @include for-size("phone-sm") {
+        font-size: 13px;
+      }
+    }
+
+    &--description {
+      margin: 4px;
+      color: rgba(127, 126, 126, 0.73);
+      @include for-size("phone-sm") {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &__subtotal {
+    flex: 3;
+    align-items: flex-end;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    &--price {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 4px;
+      color: $accentColor;
+    }
+
+    &--list-price {
+      margin: 4px;
+      text-decoration: line-through;
+    }
+  }
+
+  &__coupon {
+    margin: 16px 0px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &--label {
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &--input {
+      flex: 7;
+      margin: 8px;
+    }
+
+    &--button {
+      flex: 3;
+      margin: 8px;
+
+      button {
+        width: 100%;
+        min-width: 90px;
+        color: white;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__totals {
+    margin: 16px 0px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--label {
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+    }
+
+    &--button {
+      margin: 16px;
+      width: 100%;
+
+      button {
+        width: 100%;
+        color: white;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__shipping {
+    padding: 8px 15px;
+    background-color: #FDF5E8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+
+    &--icons {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &--text {
+      font-family: Inter, sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: $accentColor;
+      width: calc(100% - 32px);
+      width: -moz-calc(100% - 32px);
+      width: -webkit-calc(100% - 32px);
+    }
+
+  }
+
+  &__temptotal {
+    margin: 6px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &--label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    &--price {
+      font-size: 14px;
+    }
+  }
+
+  &__total {
+    margin: 6px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &--label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    &--price {
+      font-weight: bold;
+      font-size: 16px;
+      color: $accentColor;
+    }
+  }
+
+  &__payment {
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--label {
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &--label-small {
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    &--city {
+      width: 100%;
+      margin: 8px;
+    }
+
+    &--district {
+      width: 100%;
+      margin: 8px;
+    }
+
+    &--wards {
+      width: 100%;
+      margin: 8px;
+    }
+
+    &--address {
+      width: 100%;
+      margin: 8px;
+    }
+  }
+
+  &__gender {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &--radio {
+      margin: 8px;
+    }
+  }
+
+  &__method {
+    padding: 12px;
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    &--label {
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &--radio-group {
+      display: flex;
+    }
+  }
+
+  &__user-info {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &--name {
+      width: 100%;
+      margin: 8px;
+    }
+
+    &--phone {
+      width: 100%;
+      margin: 8px;
+    }
+
+    &--email {
+      width: 100%;
+      margin: 8px;
+    }
+  }
+}
+
+.btn-primary {
+  @include button-variant($accentColor, darken($accentColor, 7.5%), darken($accentColor, 10%), lighten($accentColor, 5%), lighten($accentColor, 10%), darken($accentColor, 30%));
+}

@@ -1,0 +1,25 @@
+<a class="productItem" (click)=" navigateToProductDetail(product?.name, product?.id)"style="text-decoration: none;">
+  <div class="card w-100" [ngClass]="{'shadow': false}" style="text-decoration: none;">
+    <div class="productItem__thumbnail-item">
+      <img class="productItem__thumbnail-item--avatar"
+           src="{{product?.images[0]?.path ? product?.images[0]?.path : './assets/icon/placeholder.svg'}}"
+           alt="Trang chủ" decoding="async" title="Trang chủ">
+    </div>
+    <div class="productItem__entry">
+      <label class="productItem__entry--title">
+        {{product?.name}}</label>
+      <span class="productItem__entry--price" style="height: 40px;">
+        <ins>
+          <label>
+            {{ getDisplayPrice(product) | CustomeCurrency}}  ₫
+          </label>
+        </ins>
+        <del aria-hidden="true">
+          <label>{{product?.listPrice | CustomeCurrency}} ₫
+          </label>
+        </del>
+      </span>
+    </div>
+    <div class="productItem__products-sold">Đã bán {{product?.number_sold ? product?.number_sold : randomPrNumberSold }}</div>
+  </div>
+</a>

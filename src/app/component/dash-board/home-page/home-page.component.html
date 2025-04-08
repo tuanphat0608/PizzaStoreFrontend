@@ -1,0 +1,102 @@
+<app-slide-product [advertiseCategories]="advertiseCategories" *ngIf="advertiseCategories != null"></app-slide-product>
+<div class="youtube-container d-flex flex-wrap" *ngIf="newsList?.length > 0" >
+  <div>
+    <youtube-player
+      class="youtubeFrame card"
+      [videoId]="videoId"
+      suggestedQuality="highres"
+      [playerVars]="playerConfig"
+      [width]="screenWidth"
+      [height]="screenHeight">
+    </youtube-player>
+  </div>
+  <div class="bannerNews card" style="cursor: pointer" (click)="onClickLatestNew(newsList?.[0])" [style.width.px]="screenNewsWidth" [style.height.px]="screenHeight" >
+    <div class="first-news" *ngIf="newsList!=null">
+      <div class="first-news__img">
+        <img class="image" [src]="newsList?.[0]?.image_info?.path? newsList?.[0]?.image_info?.path :'./assets/icon/placeholder.svg'  ">
+      </div>
+      <div class="first-news__content-news">
+        <h3><label class="first-news__title">{{newsList?.[0]?.title}}</label></h3>
+        <label
+          class="first-news__date">{{moment(newsList?.[0]?.created_date).locale('vi').format('DD MMMM yyyy') }}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<app-flash-sale *ngIf="flashSaleProducts?.length > 0 " [products]="flashSaleProducts"
+                [dateEnd]="EndDate"></app-flash-sale>
+<div class="product-container mt-3" *ngIf="categories != null; else loading">
+  <div *ngFor="let category of categories, index as i" class="category">
+    <a style="cursor: pointer" (click)="seeMore(category)">
+      <img class="item-img card" style="width: 100%; height: auto;"
+           [src]="isPhoneSm ? category?.advertise_image_mobile?.path ? category?.advertise_image_mobile?.path : './assets/icon/placeholder.svg'  : category?.advertise_image?.path ? category?.advertise_image?.path :'./assets/icon/placeholder.svg' "
+           *ngIf="category?.advertise_image?.path != null"
+      >
+    </a>
+    <div class="header mt-3" *ngIf="category.listProducts && category.listProducts.length > 0">
+      <div class="title">
+        <span class="title-category">{{ category.full_name }}</span>
+      </div>
+    </div>
+    <div class="product-list">
+      <div class="product-row" *ngIf="category.listProducts && category.listProducts.length > 0">
+        <app-product-item class="product-row__item" [isShadow]="true"
+                          *ngFor="let product of category.listProducts.slice(0, i == 0 ? 10 : 5)"
+                          [category]="category.full_name" [product]="product"></app-product-item>
+      </div>
+    </div>
+
+    <div class="centered-button" *ngIf="category.listProducts && category.listProducts.length > 0">
+      <button class="btn btn-outline-secondary load-category" (click)="seeMore(category)">Xem thêm</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loading-screen style="width: 100%; height: 700px"></app-loading-screen>
+</ng-template>
+<div class="hot-menu-and-news">
+  <app-news-and-hot-menu [popularCategories]="popularCategories" [newsList]="newsList"
+                         *ngIf="newsList != null"></app-news-and-hot-menu>
+</div>
+<!--<div class="comment-slide">-->
+<!--  <app-slider-best-comment [bestReview]="bestReview" *ngIf="bestReview != null"></app-slider-best-comment>-->
+<!--</div>-->
+
+<div class="floatCall d-flex flex-column">
+  <div>
+    <a style="width:50px; height:48px; " class="searchBar__contact--call" href="https://zalo.me">
+       <span class="bottomNav__item--icons"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27"
+                                                 viewBox="0 0 27 27" fill="none"><path
+         d="M20.3 2.69995H6.70001C4.49087 2.69995 2.70001 4.49081 2.70001 6.69995V20.3C2.70001 22.5091 4.49087 24.3 6.70001 24.3H20.3C22.5092 24.3 24.3 22.5091 24.3 20.3V6.69995C24.3 4.49081 22.5092 2.69995 20.3 2.69995Z"
+       ></path><path fill-rule="evenodd" clip-rule="evenodd"
+                     d="M14.2824 11.8905V11.5707H15.2401V16.0666H14.6922C14.4667 16.0666 14.2836 15.8844 14.2824 15.6592C14.2826 15.6591 14.2823 15.6593 14.2824 15.6592C13.8967 15.9413 13.4194 16.109 12.9044 16.109C11.6145 16.109 10.5686 15.0639 10.5686 13.7748C10.5686 12.4858 11.6145 11.4406 12.9044 11.4406C13.4194 11.4406 13.8967 11.6084 14.2824 11.8905C14.2826 11.8906 14.2823 11.8904 14.2824 11.8905ZM10.3204 10.125V10.2708C10.3204 10.5426 10.2841 10.7646 10.1074 11.025L10.0861 11.0494C10.0475 11.0931 9.95697 11.1958 9.9139 11.2515L6.83939 15.1105H10.3204V15.6568C10.3204 15.8831 10.1368 16.0665 9.9103 16.0665H5.40002V15.8089C5.40002 15.4935 5.47841 15.3528 5.57748 15.2061L8.85498 11.1494H5.53666V10.125H10.3204ZM16.4017 16.0666C16.2134 16.0666 16.0602 15.9135 16.0602 15.7254V10.125H17.0854V16.0666H16.4017ZM20.1164 11.4125C21.4153 11.4125 22.4679 12.4655 22.4679 13.7624C22.4679 15.0604 21.4153 16.1135 20.1164 16.1135C18.8175 16.1135 17.7649 15.0604 17.7649 13.7624C17.7649 12.4655 18.8175 11.4125 20.1164 11.4125ZM12.9044 15.1482C13.6635 15.1482 14.2786 14.5334 14.2786 13.7748C14.2786 13.0174 13.6635 12.4026 12.9044 12.4026C12.1453 12.4026 11.5301 13.0174 11.5301 13.7748C11.5301 14.5334 12.1453 15.1482 12.9044 15.1482ZM20.1164 15.1459C20.88 15.1459 21.4996 14.5266 21.4996 13.7624C21.4996 12.9993 20.88 12.3802 20.1164 12.3802C19.3516 12.3802 18.7331 12.9993 18.7331 13.7624C18.7331 14.5266 19.3516 15.1459 20.1164 15.1459Z"
+                     fill="white"></path></svg></span>
+    </a>
+  </div>
+  <div>
+    <a style="width:50px; height:48px; " class="searchBar__contact--call"
+       href="https://www.facebook.com/xiaomichinhhag">
+      <img
+        src="../assets/img/facebook.png" alt="">
+      <div>
+      </div>
+    </a>
+  </div>
+  <div>
+    <a class="searchBar__contact--call" href="tel:0919213678">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 28 29" fill="none">
+            <path
+              d="M19.8295 18.118C19.0977 17.3955 18.1841 17.3955 17.457 18.118C16.9023 18.6681 16.3476 19.2181 15.8022 19.7774C15.6531 19.9313 15.5272 19.9639 15.3454 19.8613C14.9865 19.6656 14.6043 19.5071 14.2594 19.2927C12.6512 18.2812 11.3041 16.9807 10.1109 15.5171C9.51889 14.7899 8.99217 14.0115 8.62393 13.1352C8.54935 12.9581 8.56333 12.8415 8.70783 12.697C9.26252 12.161 9.80322 11.611 10.3486 11.0609C11.1084 10.2965 11.1084 9.40154 10.3439 8.63243C9.91043 8.19428 9.47693 7.76544 9.04344 7.32729C8.59596 6.87981 8.15314 6.42767 7.70101 5.98486C6.96919 5.27169 6.05559 5.27169 5.32844 5.98952C4.76909 6.53954 4.23305 7.10355 3.66438 7.64425C3.13766 8.143 2.87197 8.75363 2.81604 9.46679C2.72747 10.6274 3.01181 11.7228 3.41268 12.7902C4.23305 14.9997 5.48226 16.962 6.99716 18.7613C9.04344 21.1944 11.4859 23.1195 14.3433 24.5086C15.6298 25.1332 16.9629 25.6133 18.4125 25.6925C19.41 25.7485 20.277 25.4968 20.9715 24.7183C21.447 24.187 21.983 23.7022 22.4864 23.1941C23.2322 22.439 23.2369 21.5254 22.4957 20.7796C21.6101 19.8893 20.7198 19.0037 19.8295 18.118ZM18.9392 14.403L20.6592 14.1094C20.3889 12.5292 19.6431 11.0982 18.5104 9.96088C17.3125 8.76295 15.7976 8.00783 14.1288 7.77477L13.8865 9.50408C15.1776 9.68587 16.3522 10.2685 17.2798 11.1961C18.1561 12.0724 18.7295 13.1818 18.9392 14.403ZM21.6288 6.92642C19.6431 4.94074 17.1307 3.68687 14.3572 3.29999L14.1149 5.0293C16.5107 5.36491 18.6829 6.45098 20.3982 8.16165C22.025 9.78842 23.0924 11.844 23.4793 14.1047L25.1993 13.8111C24.7471 11.1914 23.5119 8.81422 21.6288 6.92642Z"
+              fill="white">
+            </path>
+          </svg>
+        </span>
+      <div>
+      </div>
+    </a>
+  </div>
+
+
+</div>

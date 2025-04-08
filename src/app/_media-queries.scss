@@ -1,0 +1,22 @@
+$breakpoints: (
+  phone-sm: 575px,
+  phone: 767px,
+  tablet: 768px,
+  tablet-lg: 1024px,
+  desktop: 1025px,
+  desktop-fhd-150: 1272px,
+  desktop-fhd-125: 1528px,
+  desktop-lg: 1600px,
+
+);
+
+@mixin for-size($breakpoint) {
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    @media (max-width: $breakpoint-value) {
+      @content;
+    }
+  }
+}
+

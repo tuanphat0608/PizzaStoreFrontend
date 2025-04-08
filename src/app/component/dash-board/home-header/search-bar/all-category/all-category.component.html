@@ -1,0 +1,11 @@
+<div class="all-category">
+    <div class="categorie">
+        <div class="categoryBar__item" *ngFor="let category of allCategories"  (click)="onSelectCategory(category)" >
+            <a class="categoryBar__item--link">
+              <img [src]="category?.image_info?.path ? category?.image_info?.path: './assets/icon/placeholder.svg'" class="header_bottom__logo-items"width="20" height="20" style="margin-right: 5px;">
+            </a>
+            <span class="categoryBar__item--label" 
+                  style="color: white; text-decoration: none;font-family: sans-serif; ">{{category?.name}}</span>
+          </div >
+    </div>
+</div>

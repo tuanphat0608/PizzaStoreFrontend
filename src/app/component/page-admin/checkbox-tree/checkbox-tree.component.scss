@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.node__label {
+  cursor: pointer;
+}
+
+.node__children {
+  margin: 5px 0px 5px 5px;
+  padding-left: 5px;
+}
+
+.node--selected > .node__label {
+  font-weight: bold;
+}
+
+.big-checkbox {
+  width: 16px;
+  height: 16px;
+}

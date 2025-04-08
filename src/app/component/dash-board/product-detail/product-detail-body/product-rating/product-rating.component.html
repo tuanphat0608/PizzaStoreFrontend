@@ -1,0 +1,133 @@
+<div class="rating-comment">
+  <div class="raing card shadow">
+    <div style="padding: 10px;">
+      <h3 style="font-weight: bold; font-family: sans-serif;"> Đánh Giá Cho {{product?.name}}</h3>
+      <div class="rating-total"
+        style="display: flex; padding: 10px;justify-content: space-around; align-items: center;">
+        <div style="display: flex; flex-direction: column; text-align: center; gap: 10px; ">
+          <span style="font-size: 34px;color: #ed773d">{{averageStar}}/5</span>
+          <app-star-rating [rating]="averageStar" [readonly]="true"></app-star-rating>
+          <span>{{product?.reviews?.length}} đánh giá</span>
+        </div>
+        <div style="display: flex; flex-direction: column; text-align: center; width: 60%;">
+          <div style="display: flex; flex-direction: row;">
+            <p style="    width: 50px;">5<span style="color: #ffc120"> &#9733;</span></p>
+            <div class="custom-progress-bar-container">
+              <div class="custom-progress-bar" [style.width.%]="(value5Star / product?.reviews?.length) * 100"></div>
+            </div>
+            <span style="    width: 100px;">{{value5Star}} đánh giá</span>
+          </div>
+          <div style="display: flex; flex-direction: row;">
+            <p style="    width: 50px;">4<span style="color: #ffc120"> &#9733;</span></p>
+            <div class="custom-progress-bar-container">
+              <div class="custom-progress-bar" [style.width.%]="(value4Star / product?.reviews?.length) * 100"></div>
+            </div>
+            <span style="    width: 100px;">{{value4Star}} đánh giá</span>
+          </div>
+          <div style="display: flex; flex-direction: row;">
+            <p style="    width: 50px;">3<span style="color: #ffc120"> &#9733;</span></p>
+            <div class="custom-progress-bar-container">
+              <div class="custom-progress-bar" [style.width.%]="(value3Star / product?.reviews?.length) * 100"></div>
+            </div>
+            <span style="    width: 100px;">{{value3Star}} đánh giá</span>
+          </div>
+          <div style="display: flex; flex-direction: row;">
+            <p style="    width: 50px;">2<span style="color: #ffc120"> &#9733;</span></p>
+            <div class="custom-progress-bar-container">
+              <div class="custom-progress-bar" [style.width.%]="(value2Star / product?.reviews?.length) * 100"></div>
+            </div>
+            <span style="    width: 100px;">{{value2Star}} đánh giá</span>
+          </div>
+          <div style="display: flex; flex-direction: row;">
+            <p style="    width: 50px;">1<span style="color: #ffc120"> &#9733;</span></p>
+            <div class="custom-progress-bar-container">
+              <div class="custom-progress-bar" [style.width.%]="(value1Star / product?.reviews?.length) * 100"></div>
+            </div>
+            <span style="    width: 100px;">{{value1Star}} đánh giá</span>
+          </div>
+        </div>
+      </div>
+      <div class="rating-comment__submit-comment"
+        style="display: flex; justify-content: center;  margin-right: 5px;margin-top: 5px;padding: 16px 16px 24px;"
+        (click)="openDialog()">
+        <div class="rating-comment__submit">
+          Đánh Giá Ngay
+        </div>
+      </div>
+      <div class=" rating_review" style="display: flex; flex-direction: column; gap: 40px;padding: 30px;">
+        <div class="rating_review_item" *ngFor="let review of product?.reviews"
+          style="display: flex; flex-direction: column; gap: 10px;">
+          <div *ngIf="review?.is_active ">
+          <div class="rating_avatar-and-info" style="display: flex; align-items: center;gap: 10px;">
+            <div class="rating_avatar">
+              <img src="{{review?.avatar?.path}}" style="width: 50px; border-radius: 40px;">
+            </div>
+            <div class="rating_info">
+              <div class="rating_info__name-rating" style="display: flex; gap: 10px;">
+                <span style="font-weight: bold;">{{review?.customer_name}}</span>
+                <app-star-rating [rating]="review.rating_point" [readonly]="true"></app-star-rating>
+              </div>
+              <span class="rating_info__date-rating" style="color: #979797;">{{review?.created_date | date:'dd/MM/yyyy'
+                }}</span>
+            </div>
+          </div>
+          <span style="margin-left: 10px;">{{review?.content}}</span>
+          <div style="display: flex; gap: 5px;margin-left: 10px;">
+            <div *ngFor="let image of review?.image_list">
+              <img src="{{image?.path}}" style="width: 50px;">
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ask-and-reply card shadow">
+    <div class="form-input">
+      <span class="form-input__title">Hỏi và đáp</span>
+      <form [formGroup]="askAndRepForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+        <textarea formControlName="question" class="form-input__text-area" class="discussion" style="padding: 10px;"
+          placeholder="Mời bạn tham gia thảo luận, vui lòng nhập tiếng Việt có dấu (Bắc Buộc)"></textarea>
+        <div class="form-input__info-input">
+          <div class="form-input__gender">
+            <input type="radio" formControlName="sex" value="Nam">
+            <span>Nam</span>
+          </div>
+          <div class="form-input__gender">
+            <input type="radio" formControlName="sex" value="Nữ">
+            <span>Nữ</span>
+          </div>
+          <input formControlName="name" class="form-input__text" type="text" placeholder="Họ Tên (Bắt Buộc)">
+          <input formControlName="phone" class="form-input__text" type="text" placeholder="SĐT (Bắt Buộc)">
+          <input formControlName="email" class="form-input__text" type="text" placeholder="Email">
+          <div class="form-input__submit" (click)="onSubmit()">Gửi</div>
+        </div>
+      </form>
+      <div class=" rating_review" style="display: flex; flex-direction: column; gap: 40px;padding: 30px;">
+        <div class="rating_review_item" *ngFor="let question of product?.questions"
+          style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="rating_avatar-and-info" style="display: flex;gap: 10px;" *ngIf="question?.is_active">
+            <div class="rating_avatar">
+              <div
+                style="display: inline-block; width: 40px; border-radius: 50%;background-color: #979797; font-weight: bold; color: white;padding: 10px;">
+                <span style="margin-left: 2px; font-size: 20px;">{{getFirstChar(question?.name)}}</span>
+              </div>
+            </div>
+            <div class="rating_info">
+              <div class="rating_info__name-rating" style="display: flex; gap: 10px; flex-direction: column;">
+                <span style="font-weight: bold;">{{question.name}}</span>
+                <span>{{question.question}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="answer">
+            <div class="rating_review_item" *ngFor="let answer of question?.answer">
+              <p>answer?.question</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,33 @@
+<div class="hot-and-news">
+    <h1 class="hot-and-news__list_new__title" *ngIf="popularCategories != null">Danh Mục Nổi Bật</h1>
+    <div class="list-hot" >
+        <div  *ngFor="let category of popularCategories" class="list-item" (click)="onSelectCategory(category)">
+                <div class="card shadow">
+                    <div  class="hot-and-news_item">
+                        <div class="img-hot-menu">
+                            <img [src]="category.avatar?.path ? category.avatar?.path :'./assets/icon/placeholder.svg'">
+                        </div>
+                        <div class="title" >{{category.full_name}}</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="title-and-see-more">
+        <h1 class="hot-and-news__list_new__title" *ngIf="newsList != null">Tin Tức Công Nghệ</h1>
+        <div class="see-more" (click)="onSeeMoreNewsClick()">Xem thêm <span style="color: black;">></span>
+        </div>
+    </div>
+    <div class="hot-and-news__list_new">
+        <div class="hot-and-news__list_new__item"  *ngFor=" let news of newsList" (click)="onNewsClick(news)">
+            <a>
+                <div class="hot-and-news_item_fix card shadow">
+                    <div class="hot-and-news__list_new__image">
+                        <img class="object-fit-cover" [src]="news.image_info?.path ?news.image_info?.path  :  './assets/icon/placeholder.svg'">
+                    </div>
+                    <span style="padding: 10px; font-weight: bold">{{news.title}}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

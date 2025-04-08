@@ -1,0 +1,104 @@
+<div class="page-container">
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+
+      <div class="form-group" style="max-width: 300px;">
+        <label for="">Loại tin tức</label>
+        <select class="form-control form-select" placeholder="Please select" [(ngModel)]="isSystemFilter"
+          (change)="onChangeFilter()">
+          <option [value]="false">Thông thường</option>
+          <option [value]="true">Hệ thống</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="button-group d-flex  gap-2 justify-content-end">
+        <ng-container *ngIf="selectedElements && selectedElements.length != 0">
+          <button mat-raised-button color="warn" (click)="onHideMultiplePost()">
+            <mat-icon>block</mat-icon>
+            Ẩn hàng loạt</button>
+          <button mat-raised-button color="warn" (click)="onDeleteMultiple()">
+            <mat-icon>delete</mat-icon>
+            Xóa hàng loạt
+          </button>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="onAddNew()">
+          <mat-icon>add</mat-icon>
+          Thêm mới
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Check Column -->
+    <ng-container matColumnDef="check">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox [(ngModel)]="isAllChecked" (ngModelChange)="onCheckAll($event)"></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [(ngModel)]="element.checked" (ngModelChange)="onCheckChange()"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Image Info Column -->
+    <ng-container matColumnDef="image_info">
+      <th mat-header-cell *matHeaderCellDef> Hình ảnh </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element?.image_info?.path">
+          <div class="img-box">
+            <img [src]="element?.image_info?.path" alt="">
+          </div>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Tiêu đề </th>
+      <td mat-cell *matCellDef="let element"> {{element?.title}} </td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef> Lượt xem </th>
+      <td mat-cell *matCellDef="let element"> {{element?.view}} </td>
+    </ng-container>
+
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="category_name">
+      <th mat-header-cell *matHeaderCellDef> Danh mục </th>
+      <td mat-cell *matCellDef="let element"> {{element?.category?.name }} </td>
+    </ng-container>
+
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="is_active">
+      <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-slide-toggle [(ngModel)]="element.is_active" (ngModelChange)="onChangeStatus($event, element)"></mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Chức năng </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="action-group">
+          <mat-icon class="text-success" matTooltip="Chỉnh sửa" (click)="onEdit(element)">edit</mat-icon>
+          <mat-icon class="text-danger" matTooltip="Xóa" *ngIf="role == 'admin'|| role == 'manager'"  (click)="onDelete(element)">delete</mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="totalItems" [pageSize]="pageSize" [showFirstLastButtons]="true"
+    [pageIndex]="pageIndex" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page" (page)="onPageChange($event)">
+  </mat-paginator>
+
+</div>

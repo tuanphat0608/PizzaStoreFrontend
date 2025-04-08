@@ -1,0 +1,109 @@
+@import 'src/app/app.component';
+
+.categoryBar {
+  display: none;
+  @extend %center-container;
+  margin-top: 5px;
+
+  @include for-size("tablet") {
+    width: 90vw;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  @include for-size("phone-sm") {
+    display: block;
+    width: 90vw;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  &.scrolled{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+  }
+
+  &__content{
+    max-height: 200px;
+    background: $accentGradient;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 50px 10px 50px;
+    //position: relative;
+    overflow: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    @include for-size("tablet") {
+      padding: 10px;
+      overflow: hidden;
+      overflow-x: scroll;
+    }
+    @include for-size("phone-sm") {
+      padding: 10px;
+    }
+
+    &.scrolled{
+      border-radius: 0;
+      font-size: 14px;
+      padding: 0.5rem 7rem;
+      @include for-size("tablet") {
+        padding: 0.5rem 1.5rem;
+      }
+      @include for-size("phone-sm") {
+        padding: 0.5rem 1.5rem;
+      }
+      img {
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 20px;
+        width: auto;
+      }
+    }
+  }
+  &__content::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+  &__item{
+    min-width: 76px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover{
+      img{
+        transform: scale(1.2);
+      }
+    }
+    &.scrolled{
+      min-width: initial;
+      flex-direction: row;
+    }
+    &--link {
+      text-decoration: none;
+      img {
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 32px;
+        width: auto;
+      }
+    }
+    &--label {
+      font-size: 12px;
+      min-width: 80px;
+      text-align: center;
+      white-space:nowrap;
+      &.scrolled{
+        margin-left: 0;
+        min-width: initial;
+        text-align: initial;
+      }
+    }
+    img{
+      transition: transform 0.3s;
+    }
+  }
+}

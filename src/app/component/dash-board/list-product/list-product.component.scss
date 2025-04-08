@@ -1,0 +1,250 @@
+@import '../../../app.component';
+
+.banner{
+  width: 100%;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category {
+  border-radius: 5px;
+  align-items: center;
+}
+
+
+.price {
+  display: flex;
+  margin: 10px;
+
+  .discount {
+    margin-right: 5px;
+    font-size: 13px;
+    font-family: "Inter", sans-serif;
+    color: $accentFirstColor;
+  }
+
+  .normal-price {
+    font-size: 11px;
+    font-family: "Inter", sans-serif;
+    text-decoration: line-through;
+  }
+
+}
+
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Khoảng cách giữa các sản phẩm */
+  margin-top: 28px;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+    font-family: "Inter", sans-serif;
+  }
+  &__item{
+    width: calc((100% - 40px)/5);
+    @include for-size("tablet") {
+      width: initial;
+    }
+
+    @include for-size("phone-sm") {
+      width: calc((100% - 10px)/2);
+    }
+  }
+}
+
+
+.product {
+  flex: 0 0 calc(33.33% - 20px); /* Kích thước cố định cho từng sản phẩm, 33.33% cho 3 cột trên một hàng, với 20px khoảng cách */
+  border: 1px solid #ccc; /* Đường viền sản phẩm */
+  padding: 10px;
+  background-color: #fff; /* Màu nền sản phẩm */
+}
+
+.product a {
+  text-decoration: none; /* Loại bỏ đường link mặc định */
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); /* Adding a shadow to the right and bottom */
+  background-color: #fff; /* Màu nền sản phẩm */
+  border: 1px solid #ccc; /* Đường viền sản phẩm */
+  padding: 20px 20px 20px 20px;
+
+}
+
+.image {
+  margin-bottom: 10px;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.zoom-image {
+  transition: transform 0.2s;
+  max-width: 100%;
+  height: auto;
+}
+
+.zoom-image:hover {
+  transform: scale(1.1); /* Hiệu ứng phóng to khi hover */
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.discount {
+  color: red;
+}
+
+.normal-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.btn-order {
+  background-color: #ee8141;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Áp dụng kiểu cho nút chỉ khi có hàng tồn kho */
+.btn-order:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-see-all-product {
+  background: $accentGradient;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin-top: 3px;
+
+}
+
+.btn-see-all-product:hover {
+  color: white;
+
+}
+
+.product-info:hover {
+  border: 2px solid $accentFirstColor
+}
+
+.load-category {
+  margin-bottom: 20px;
+  width: 300px;
+}
+//
+//.load-category:hover {
+//  border: 2px solid $accentFirstColor
+//}
+
+.centered-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.title {
+  background-color: $headerBackground;
+  border: 2px solid white;
+  border-radius: 8px;
+  display: flex;
+  padding-left: 30px;
+  padding-right: 30px;
+  justify-content: space-around;
+  span {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 24px;
+    display: inline-block;
+  }
+}
+
+.title-category {
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 6px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Define a class for the zoom effect */
+.zoom-image {
+  transition: transform 0.2s; /* Add a smooth transition effect */
+}
+
+/* Define the zoom effect when hovering over the image */
+.zoom-image:hover {
+  transform: scale(1.1); /* Adjust the scale factor for the desired zoom level */
+}
+
+/* Ensure the image stays within the boundaries of the container */
+.image-container {
+  overflow: hidden;
+  width: 170px; /* Adjust to the width of your image container */
+  height: 150px; /* Adjust to the height of your image container */
+}
+
+
+@media screen and (max-width: 768px) {
+  .product-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-left: 0px;
+    margin-right: 0px
+
+  }
+  //.product-row {
+  //  padding-left: 10px;
+  //  flex-wrap: nowrap;
+  //  overflow: hidden;
+  //  overflow-x: scroll;
+  //  justify-content: flex-start;
+  //  &::-webkit-scrollbar {
+  //    display: none;  /* Safari and Chrome */
+  //  }
+  //}
+
+  .title {
+    border-radius: 10px;
+    width: 200px;
+  }
+}

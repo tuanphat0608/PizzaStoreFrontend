@@ -1,0 +1,20 @@
+<div class="home-header">
+  <app-home-header [categories]="categories" [searchCategories]="searchCategories" [allCategories]="allCategories"></app-home-header>
+</div>
+
+
+<div class="main-container home-body">
+  <app-breadcrumb></app-breadcrumb>
+  <router-outlet></router-outlet>
+</div>
+
+<div class="home-footer">
+  <app-home-footer [categories]="categories?.slice(0, 12)"></app-home-footer>
+</div>
+
+<div class="bottomNav-mobile">
+  <app-nav-mobile [categories]="allCategories" ></app-nav-mobile>
+</div>
+
+
+

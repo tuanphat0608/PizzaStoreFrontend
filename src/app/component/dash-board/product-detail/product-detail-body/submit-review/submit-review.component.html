@@ -1,0 +1,51 @@
+<div class="submit-from" style="padding: 10px; display: flex; flex-direction: column; gap: 10px;" [formGroup]="review">
+    <div class="header-and-close">
+        <h3 style="font-weight: bold; font-family: sans-serif;"> Đánh Giá Cho {{product?.name}}</h3>
+
+    </div>
+    <div class="submit-from__text" style="display: flex; flex-direction: column;">
+        <textarea [style.height.px]="100" placeholder="Mời bạn chia sẻ một số cảm nhận... (Bắc Buộc)" formControlName="content"
+            style="border-radius: 10px 10px 0px 0px;border: 1px solid #bdbdbd;padding: 10px;"></textarea>
+        <div class="submit-from__send-pic"
+            style="display: flex; flex-direction: row;justify-content: space-between;border-radius: 0px 0px 10px 10px;border: 1px solid #bdbdbd;padding: 10px;">
+            <a style="text-decoration: none;">
+                <div class="product-new__upload" (click)="file.click()" corpImgUpload (dropFiles)="onDropFiles($event)">
+                    <input type="file" multiple hidden accept="image/*" (change)="selectFiles($event)" #file style="cursor: pointer; ">
+                    Gửi hình chụp thực tế
+
+                </div>
+            </a>
+            <span>{{GetLengthContent()}} ký tự (tối thiểu 5)</span>
+        </div>
+
+    </div>
+    <div>
+        <div class="product-new__preview" style="display: flex; flex-direction: row; overflow: scroll;">
+            <div class="center-cropped" *ngFor="let path of filePaths, index as i">
+                <div class="product-new__preview--close" (click)="onRemoveImage(i)">
+                    <i class="fa fa-close"></i>
+                </div>
+                <img class="product-new__preview--thumbnail" width="100" [src]="path " />
+            </div>
+        </div>
+    </div>
+    <div class="submit-from__rating">
+        <span>
+            Bạn cảm thấy sản phẩm này như thế nào? (chọn sao nhé):</span>
+        <app-star-rating [rating]="0" [readonly]="false" (ratingChange)="getRating($event)"></app-star-rating>
+    </div>
+    <div class="submit-from__input-info" style="display: flex;justify-content: space-between; gap: 20px;">
+        <input type="text" placeholder="Họ tên (bắt buộc)" style="border-radius: 5px; padding: 10px;" formControlName="customer_name">
+        <input type="text" placeholder="SĐT (bắt buộc)" style="border-radius: 5px; padding: 10px;" formControlName="customer_phone">
+    </div>
+    <div class="submit-from__check-box" style="display: flex;flex-direction: column; align-items: flex-start;">
+        <input type="checkbox" formControlName="is_remember_me">
+        <span>Lưu tên của tôi, và trang web trong trình duyệt này cho lần bình luận kế tiếp của tôi.</span>
+    </div>
+    <div class="submit-from__send"
+        style="display: flex; justify-content: center;  margin-right: 5px;margin-top: 5px;padding: 16px 16px 24px;">
+        <div class="submit-from__submit"(click)="sendReview()">
+            Gửi Đánh Giá Ngay 
+        </div>
+    </div>
+</div>

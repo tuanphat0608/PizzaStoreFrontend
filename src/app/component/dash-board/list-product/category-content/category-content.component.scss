@@ -1,0 +1,133 @@
+@import '../../../../app.component';
+
+.category-content__text-content {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+.category-content {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+
+  &__about {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 20px;
+
+    img {
+      width: 100%;
+    }
+
+    @include for-size("tablet") {
+      display: none;
+      flex: initial;
+    }
+
+    @include for-size("phone-sm") {
+      display: none;
+      flex: initial;
+    }
+
+  }
+
+  &__list_new {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 20px;
+
+    &__image {
+      width: 100%;
+      overflow: hidden;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      img {
+        transition: transform 0.3s;
+      }
+
+      &:hover {
+        img {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &__title {
+      background-color: #2D2D37;
+      color: white;
+      width: 250px;
+      text-align: center;
+      border-radius: 5px;
+      font-family: sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      border-radius: 10px;
+      position: relative;
+      height: fit-content;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        transition: transform 0.3s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  &__content {
+    flex: 8;
+    width: 100%;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    @include for-size("phone-sm") {
+      //width: 366px;
+      flex: initial;
+    }
+
+  }
+
+
+  &__see-more {
+    padding-top: 20px;
+    text-align: center;
+
+    .styled-button {
+      color: black;
+      border: 1px solid black;
+
+      border-radius: 10px;
+      text-decoration: none;
+      padding: 11px 50px 11px 50px;
+      transition: 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        color: $accentColor;
+        background-color: #FDF5E8;
+        border: 1px solid $accentColor;
+      }
+    }
+  }
+}

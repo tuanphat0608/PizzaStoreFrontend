@@ -1,0 +1,72 @@
+<!-- autocomplete.component.html -->
+<div class="autocomplete" [ngStyle]="{'height': isInputFocused ? '500px' : '0px'}" >
+    <div style="background-color: white; border-radius: 10px; " class="input-group">
+        <input [(ngModel)]="userInput" class="form-control border-end-0 border rounded-3"
+            (input)="filterOptions($event)" (focus)="onInputFocus()"
+            (blur)="onInputBlur($event)"
+
+
+             (keydown.enter)="searchProduct()" dtype="search" placeholder="Bạn muốn tìm gì?"
+            id="example-search-input">
+        <span class="input-group-append">
+            <button class="btn bg-white rounded-3 ms-n5" type="button" (click)="searchProduct()">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+  <div *ngIf="sections[0].options.length > 0 || sections[1].options.length">
+    <div class="autocomplete__list-search" *ngIf="isInputFocused && userInput != ''">
+      <div class="autocomplete__data-filter">
+        <div class="autocomplete__title">
+          <h3>{{ sections[0].title }}</h3>
+        </div>
+        <p *ngIf="sections[0].options.length === 0; else notShow"
+           style="padding: 10px; font-weight: bold; font-family: sans-serif;">
+          Không có kết quả tìm kiếm
+        </p>
+        <ng-template #notShow>
+          <ul *ngIf="sections[0].options.length > 0">
+            <li *ngFor="let option of sections[0].options" (click)="onSelectOption(sections[0].title, option)">
+              <div class="autocomplete__item">
+                <img class="autocomplete__item__img" [src]="option.images[0]?.path ? option.images[0]?.path : './assets/icon/placeholder.svg'">
+                <div>
+                  <span class="autocomplete__item__name">{{option.name }}</span>
+                  <div class="autocomplete__item__price"
+                       *ngIf="option?.priceFormatted != null || option?.listPriceFormatted != null">
+                                    <span class="autocomplete__item__discount-price"
+                                          *ngIf="option?.priceFormatted != null">{{ getDisplayPrice(option) | CustomeCurrency}}</span>
+                    <span class="autocomplete__item__normal-price"
+                          [ngStyle]="{'text-decoration': (option.priceFormatted != null && option.priceFormatted !== '') ? 'line-through' : 'none'}"
+                          *ngIf="option?.listPriceFormatted != null">{{ option.listPrice | CustomeCurrency
+                      }}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+      <div class="autocomplete__data-filter">
+        <div class="autocomplete__title">
+          <h3>{{ sections[1].title }}</h3>
+        </div>
+        <p *ngIf="sections[1].options.length === 0; else notShow2"
+           style="padding: 10px; font-weight: bold; font-family: sans-serif;">
+          Không có kết quả tìm kiếm
+        </p>
+        <ng-template #notShow2>
+          <ul *ngIf="sections[1].options.length > 0">
+            <li *ngFor="let option of sections[1].options" (click)="onSelectNewsOption(sections[1].title, option)">
+              <div class="autocomplete__item">
+                <img class="autocomplete__item__img" [src]="option?.image_info?.path ? option?.image_info?.path : './assets/icon/placeholder.svg' ">
+                <div>
+                  <span class="autocomplete__item__name">{{option.title }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

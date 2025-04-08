@@ -1,0 +1,511 @@
+@import "../../../../app.component";
+
+
+.productImages {
+  display: flex;
+  padding: 8px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.center-cropped {
+  border-radius: 4px;
+  border: 1.6px $accentColor;
+  background: #ECECEC;
+  padding: 2px;
+  justify-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  margin: 2px;
+}
+
+.thumbList {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  &--item {
+    height: auto;
+    width: 25%;
+    margin: 8px;
+  }
+}
+
+.rating-color {
+  color: #fbc634 !important;
+}
+
+.small-ratings i {
+  color: #cecece;
+}
+
+
+.product {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  height: fit-content;
+
+  &_cart {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    @include for-size("phone-sm") {
+      flex-direction: column;
+
+    }
+    @include for-size("tablet") {
+      flex-direction: column;
+
+    }
+  }
+
+  .tablet-mode {
+    display: none;
+    flex-direction: column;
+    @include for-size("tablet") {
+      display: contents;
+
+      flex-direction: column;
+
+    }
+
+    @include for-size("phone-sm") {
+      display: none;
+
+    }
+  }
+
+  .laptop-mode {
+    @include for-size("phone-sm") {
+      display: none
+    }
+    @include for-size("tablet") {
+      display: none
+    }
+
+  }
+
+  .phone-mode {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    @include for-size("tablet") {
+      display: contents
+    }
+    @include for-size("phone-sm") {
+      display: flex;
+    }
+  }
+
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &--title {
+      color: $headerBackground;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 24px;
+
+      @include for-size("phone-sm"){
+        font-size: 18px;
+        padding-bottom: 5px;
+      }
+    }
+
+    &--meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-left: 16px;
+      color: $headerBackground;
+      line-height: 20px;
+      font-weight: 400;
+      font-size: 14px;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    &--link {
+      padding-left: 8px;
+      color: $accentColor;
+    }
+
+
+    &--star-rating {
+      overflow: hidden;
+      position: relative;
+      height: 1.618em;
+      width: 5.3em;
+      font-family: star, serif;
+      font-weight: 400;
+
+      &::before {
+        content: "\53\53\53\53\53";
+        opacity: 0.25;
+        float: left;
+        top: 0;
+        left: 0;
+        position: absolute;
+      }
+
+      span::before {
+        content: "\53\53\53\53\53";
+        top: 0;
+        position: absolute;
+        left: 0;
+        color: #FFC120;
+      }
+    }
+  }
+
+  &__avatar {
+    flex: 5;
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 500px;
+
+    img:not(.img-slide) {
+      height: 75px;
+      width: auto;
+    }
+
+    .img-slide {
+      width: 100%;
+      height: auto;
+    }
+    .item-img{
+      height: 400px;
+      width:400px;
+      img {
+        height: 400px;
+        width:400px;
+        object-fit: cover;
+        @include for-size("phone-sm") {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      @include for-size("phone-sm") {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    @include for-size("desktop-fhd-125") {
+      flex: 3;
+    }
+    @include for-size("desktop-fhd-150") {
+
+    }
+    @include for-size("tablet") {
+      flex: initial;
+      width: 100%;
+    }
+    @include for-size("phone-sm") {
+      flex: initial;
+      width: 100%;
+    }
+  }
+
+  &__detail {
+    flex: 7;
+    height: fit-content;
+    padding: 16px;
+    margin-top: 8px;
+    @include for-size("desktop-fhd-125") {
+    }
+    @include for-size("desktop-fhd-150") {
+    }
+    @include for-size("tablet") {
+      flex: initial;
+    }
+    @include for-size("phone-sm") {
+      flex: initial;
+    }
+
+    .warranty-information {
+      background: #FDF5E8;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+
+      span {
+        padding-left: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        color: $accentColor;
+
+
+      }
+    }
+
+    .promotion-information {
+      margin-bottom: 15px;
+
+      .item-warranty {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .count {
+          width: 24px;
+
+          span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            width: 24px;
+            height: 24px;
+            background: $accentColor;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+
+        .text {
+          width: calc(100% - 24px);
+          width: -moz-calc(100% - 24px);
+          width: -webkit-calc(100% - 24px);
+          padding-left: 12px;
+          color: var(--color-black);
+          font-weight: 400;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .button-holder {
+      display: flex;
+      flex-wrap: wrap;
+
+      a {
+        text-decoration: none;
+      }
+
+      .buy-now-btn {
+        display: flex;
+        margin-bottom: 8px;
+        align-items: center;
+        justify-content: center;
+        background: $accentColor;
+        height: 58px;
+        width: calc(100% - 136px - 8px);
+        width: -moz-calc(100% - 136px - 8px);
+        width: -webkit-calc(100% - 136px - 8px);
+        border-color: $accentColor;
+        text-align: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        cursor: pointer;
+        @include for-size("tablet") {
+          height: 78px;
+        }
+        @include for-size("phone-sm") {
+          height: 78px;
+        }
+
+        span {
+          color: white;
+        }
+
+        span:first-child {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+          text-transform: uppercase;
+          margin-bottom: 2px;
+        }
+
+        span:last-child {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+        }
+      }
+
+      .single_add_to_cart_button:not(.buy-now-btn) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 124px;
+        height: 58px;
+        border: 1px solid #ECECEC;
+        border-radius: 8px;
+        background: #FFFFFF;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 15px;
+        color: $headerBackground;
+        text-align: center;
+        margin-left: 12px !important;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        @include for-size("tablet") {
+          height: 78px;
+        }
+        @include for-size("phone-sm") {
+          height: 78px;
+        }
+
+        &:hover {
+          background: $accentColor;
+
+          span {
+            color: white;
+          }
+        }
+      }
+    }
+
+    &--price {
+      background: #F7F7F7;
+      border-radius: 4px;
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 16px;
+
+      p {
+        margin: 0;
+      }
+
+      del {
+        margin-right: 11px;
+
+        span {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 28px;
+          text-decoration-line: line-through;
+          color: $headerBackground;
+
+        }
+      }
+
+      ins {
+        span {
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 28px;
+          display: inline-block;
+          color: $accentColor;
+        }
+      }
+
+      .onsale {
+        padding: 5px 6px;
+        border-radius: 4px;
+        background: $accentGradient;
+        color: white;
+        margin-left: 23px;
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+    }
+  }
+
+  &__content {
+    height: fit-content;
+    margin-top: 5px;
+    padding: 16px 16px 24px;
+    flex: 7;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    &__see-more {
+      padding-top: 20px;
+      text-align: center;
+
+      .styled-button {
+        color: black;
+        border: 1px solid black;
+
+        border-radius: 10px;
+        text-decoration: none;
+        padding: 11px 50px 11px 50px;
+        transition: 0.3s;
+
+        &:hover {
+          cursor: pointer;
+          color: $accentColor;
+          background-color: #FDF5E8;
+          border: 1px solid $accentColor;
+        }
+      }
+    }
+  }
+
+  &__extra {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 3;
+  }
+
+  &__specs {
+    height: fit-content;
+    width: 100%;
+    margin-top: 5px;
+    padding: 16px 16px 24px;
+
+    &--title-specifications {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: black;
+      margin-bottom: 16px;
+    }
+
+    &--table {
+      tr:nth-child(odd) > * {
+        background: #ECECEC;
+      }
+    }
+  }
+
+  &__suggestion {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 5px;
+    padding: 16px 16px 24px;
+
+    .list {
+      width: calc((100%) / 2)
+    }
+
+    &--title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: black;
+      margin-bottom: 16px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<app-product-detail-body [product]="product"
+                         [productSuggest]="productSuggest"
+                         [averageStar]="averageStar"
+                         [value1Star]="value1Star"
+                         [value2Star]="value2Star"
+                         [value3Star]="value3Star"
+                         [value4Star]="value4Star"
+                         [value5Star]="value5Star"
+                         *ngIf="product != null; else loading"
+                         [salePercent]="salePercent"
+                         [listImg]="product?.images"
+></app-product-detail-body>
+
+
+<ng-template #loading>
+  <app-loading-screen style="width: 100%; height: 700px"></app-loading-screen>
+</ng-template>

@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ flashSaleId ? "Cập nhật khuyến mãi" : "Thêm mới khuyến mãi" }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form action="" [formGroup]="form">
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="form-group" style="width: 450px;">
+          <label for="">Tên Khuyến Mãi</label>
+          <input type="text" class="form-control" formControlName="name" >
+          <ng-container *ngIf="form.get('name').touched || form.get('name').dirty">
+            <ng-container *ngIf="form.get('name').invalid ">
+              <span class="text-danger">
+                Trường bắt buộc nhập
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div class="form-group"style="width: 450px;">
+          <label for="">Trạng thái</label>
+          <mat-slide-toggle formControlName="is_active" style="margin-left: 10px;"></mat-slide-toggle>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field style="width: 450px;">
+            <mat-label>Ngày Bắt Đầu</mat-label>
+            <input matInput [matDatepicker]="pickerStart" class="form-control"formControlName="startDate" >
+            <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field style="width: 450px;">
+            <mat-label>Ngày Kết Thúc</mat-label>
+            <input matInput [matDatepicker]="pickerEnd" class="form-control"formControlName="endDate" >
+            <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+          <!-- <input type="text" class="form-control" formControlName="status"> -->
+        </div>
+
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="button-group d-flex gap-2">
+
+    <ng-container *ngIf="flashSaleId">
+      <button mat-raised-button color="warn" (click)="onAssignProduct()" matTooltip="Gán sản phẩm">
+        <mat-icon>add</mat-icon>
+        Gán sản phẩm
+      </button>
+    </ng-container>
+
+    <button mat-raised-button color="primary" (click)="onSave()" matTooltip="Lưu danh mục">
+      <mat-icon>save</mat-icon>
+      Lưu
+    </button>
+
+    <button mat-raised-button mat-dialog-close matTooltip="Hủy bỏ">
+      <mat-icon>close</mat-icon>
+      Hủy bỏ
+    </button>
+  </div>
+</mat-dialog-actions>

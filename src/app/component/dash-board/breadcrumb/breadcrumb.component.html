@@ -1,0 +1,12 @@
+<div *ngIf="breadcrumbs != null">
+  <div class="breadcrumb">
+    <div *ngFor="let breadcrumb of breadcrumbs; let last = last; let i = index">
+      <ng-container *ngIf="!last; else lastBreadcrumb">
+          <div style="cursor: pointer" class="breadcrumb__not-final" (click)="breadcrumbClicked(breadcrumb)">{{ breadcrumb }} / </div>
+      </ng-container>
+      <ng-template #lastBreadcrumb>
+        <div class="breadcrumb__final">{{ breadcrumb }}</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

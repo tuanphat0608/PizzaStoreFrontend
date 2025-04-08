@@ -1,0 +1,44 @@
+@import "src/app/app.component";
+
+.error-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $light;
+
+  .box {
+    border-radius: 20px;
+    min-width: 100%;
+    padding: 50px;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    //gap: 20px;
+
+    img {
+      height: 150px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 100px;
+      font-weight: bold;
+      font-family: sans-serif;
+      padding-bottom: 50px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: bold;
+      font-style: italic;
+      font-family: sans-serif;
+    }
+
+    .home-button {
+      font-family: sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}

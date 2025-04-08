@@ -1,0 +1,153 @@
+@import "src/app/app.component";
+
+
+.newsDetail {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &--content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &--body {
+    flex: 7;
+    padding-top: 60px;
+    margin-right: 16px;
+    @include for-size("tablet") {
+      flex: 7;
+    }
+    @include for-size("phone-sm") {
+      flex: initial;
+      width: 100%;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &--nav {
+    flex: 3;
+    margin-left: 16px;
+    @include for-size("tablet") {
+      flex:4;
+    }
+    @include for-size("phone-sm") {
+      flex: initial;
+      width: 100%;
+    }
+
+    .childNews {
+      padding: 10px;
+      display: flex;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
+
+    .first-news {
+      margin-bottom: 20px;
+
+      p {
+        margin: 0;
+        line-height: 1.5em;
+        font-size: 14px;
+        color: #777;
+      }
+
+      img {
+        height: auto;
+        width: 100%;
+      }
+
+      &__title {
+        font-size: 18px;
+        font-weight: 500;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &__sm-title {
+        font-size: 14px;
+        font-weight: 500;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &__date {
+        line-height: 1.3em;
+        font-size: 12px;
+        margin-bottom: 13px;
+        color: #adadad;
+      }
+    }
+
+    &__title {
+      background-color: #2d2d37;
+      color: white;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      border: 2px solid white;
+      border-radius: 8px;
+      display: flex;
+      padding: 10px;
+      justify-content: space-around;
+    }
+  }
+
+
+  &--header {
+
+    margin-bottom: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: center;
+
+    &__title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.3em;
+      font-family: Inter, sans-serif;
+      text-align: center;
+      width: 100%;
+    }
+
+    &__time {
+      text-align: center;
+      width: 100%;
+    }
+
+    &__icon {
+      width: 100%;
+      align-self: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      img {
+        margin: 8px;
+        height: 48px;
+        width: 48px;
+      }
+    }
+  }
+}

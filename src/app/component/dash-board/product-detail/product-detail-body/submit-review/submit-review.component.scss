@@ -1,0 +1,35 @@
+@import "../../../../../app.component";
+.submit-from {
+    &__submit {
+        padding-top: 20px;
+        text-align: center;
+        color: #ffffff;
+        background-color: $accentColor;
+        border: 1px solid $accentColor;
+
+        border-radius: 10px;
+        text-decoration: none;
+        padding: 11px 50px 11px 50px;
+
+        &:hover {
+            cursor: pointer;
+
+        }
+
+    }
+    &__input-info{
+        flex-direction: row;
+        @include for-size("phone-sm") {
+            //width: 365px !important;
+            flex-direction:  column;
+        }
+    }
+    &__rating{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        @include for-size("phone-sm") {
+            flex-direction: column;
+        }
+    }
+}

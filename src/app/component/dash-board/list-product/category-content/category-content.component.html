@@ -1,0 +1,35 @@
+<div class="category-content">
+    <div class="category-content__about">
+        <div class="category-content__category-img" *ngIf="category?.advertise_image?.path != null">
+            <img [src]="category?.advertise_image?.path ? category?.advertise_image?.path :'./assets/icon/placeholder.svg'">
+        </div>
+        <div class="category-content__list_new">
+            <h1 class = "category-content__list_new__title">Tin tức liên quan</h1>
+            <p *ngIf="!newsList || newsList.length == 0">Chưa có tin tức liên quan</p>
+            <div class="category-content__list_new__item mt-2"*ngFor=" let news of newsList">
+                <a (click)="onNewsClick(news)">
+                    <div class="card shadow">
+                        <div class="category-content__list_new__image">
+                            <img [src]="news.image_info?.path ? news.image_info?.path:'./assets/icon/placeholder.svg' ">
+                        </div>
+                        <span style="padding: 10px; font-weight: bold">{{news.title}}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="category-content__content">
+        <h2>Giới thiệu</h2>
+        <div *ngIf="category?.content else isUpdate">
+            <div class="category-content__text-content"  [innerHTML]="dynamicHtmlContent" [ngStyle]="!isExpand ? collapseStyles : expandStyles">
+            </div>
+            <div class="category-content__see-more" (click)="expandOrCollapse()">
+                <a *ngIf="!isExpand" class="styled-button">Xem Thêm</a>
+                <a *ngIf="isExpand" class="styled-button">Thu Gọn</a>
+            </div>
+        </div>
+        <ng-template #isUpdate>
+            <div style="text-align: center; font-family: sans-serif; font-size: 16px;width: 100%;" >Sẽ cập nhật trong thời gian tới</div>
+        </ng-template>
+    </div>
+</div>

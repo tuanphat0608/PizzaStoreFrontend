@@ -1,0 +1,68 @@
+<div class="page-container">
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6 p-3">
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="button-group d-flex  gap-2 justify-content-end">
+        <ng-container *ngIf="selectedElements && selectedElements.length != 0">
+          <button mat-raised-button color="warn" (click)="onDeleteMultiple()">
+            <mat-icon>delete</mat-icon>
+            Xóa hàng loạt
+          </button>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="onAddNew()">
+          <mat-icon>add</mat-icon>
+          Thêm mới
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Check Column -->
+    <ng-container matColumnDef="check">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox [(ngModel)]="isAllChecked" (ngModelChange)="onCheckAll($event)"></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [(ngModel)]="element.checked" (ngModelChange)="onCheckChange()"></mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <!-- Product Name Column -->
+    <ng-container  matColumnDef="username">
+      <th style="width: 250px;" mat-header-cell *matHeaderCellDef> Tên Người Dùng </th>
+      <td style="width: 250px;" mat-cell *matCellDef="let element"> {{element?.username}} </td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="role">
+      <th style="width: 200px;" mat-header-cell *matHeaderCellDef> Quyền </th>
+      <td style="width: 200px;" mat-cell *matCellDef="let element"> {{element?.role}} </td>
+    </ng-container>
+
+
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th style="width: 300px;" mat-header-cell *matHeaderCellDef> Chức năng </th>
+      <td style="width: 300px;" mat-cell *matCellDef="let element">
+        <div class="action-group">
+          <mat-icon class="text-success" matTooltip="Chỉnh sửa" (click)="onEdit(element)">edit</mat-icon>
+          <mat-icon class="text-danger" matTooltip="Reset Password"  (click)="resetPassword(element)">refresh</mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="totalItems" [pageSize]="pageSize" [showFirstLastButtons]="true"
+    [pageIndex]="pageIndex" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page" (page)="onPageChange($event)">
+  </mat-paginator>
+
+</div>

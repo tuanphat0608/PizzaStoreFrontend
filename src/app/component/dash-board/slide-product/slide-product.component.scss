@@ -1,0 +1,34 @@
+@import "../../../app.component";
+
+.slider-bar__avatar {
+  .pc-mode {
+    @include for-size("phone-sm") {
+      display: none;
+
+    }
+
+    .item-img {
+      img {
+        //height: calc(70vw * 1/3);
+        object-fit: cover;
+      }
+    }
+  }
+
+  .mobile-mode {
+    display: none;
+
+    @include for-size("phone-sm") {
+      display: contents;
+
+    }
+
+    .item-img {
+      img {
+        height: calc(100vw * 1/2);
+        object-fit: cover;
+
+      }
+    }
+  }
+}

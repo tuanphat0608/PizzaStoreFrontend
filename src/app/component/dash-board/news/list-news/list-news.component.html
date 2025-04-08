@@ -1,0 +1,87 @@
+<div class="newsDetail">
+    <div class="newsDetail__list-news" *ngIf="newsList?.length > 0; else noData">
+        <div  class="newsDetail__two-first-ad">
+            <div class="newsDetail__first-news" *ngIf="newsList?.length > 0" (click)="onNewsClick(newsList?.[0])">
+                <img class="newsDetail__first-news__img"  [src]="newsList?.[0]?.image_info.path ? newsList?.[0]?.image_info.path : './assets/icon/placeholder.svg' ">
+                <div class="newsDetail__text-container">
+                    <span><label class="newsDetail__first-news__title">{{newsList?.[0]?.title}}</label></span>
+                    <span class="newsDetail__first-news__date">{{moment(newsList?.[0]?.created_date).locale('vi').format('DD MMMM yyyy') }}</span>
+                </div>
+            </div>
+
+
+            <div class="newsDetail__first-news" *ngIf="newsList?.length > 1" (click)="onNewsClick(newsList?.[1])">
+                <img class="newsDetail__first-news__img" [src]="newsList?.[1]?.image_info.path ? newsList?.[1]?.image_info.path:  './assets/icon/placeholder.svg' " >
+                <div class="newsDetail__text-container" >
+                    <span><label class="newsDetail__first-news__title">{{newsList?.[1]?.title}}</label></span>
+                    <span class="newsDetail__first-news__date">{{moment(newsList?.[1]?.created_date).locale('vi').format('DD MMMM yyyy') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="newsDetail__other">
+          <div class="newsDetail__other__list" *ngFor="let news of newsList?.slice(2, newsList.length)" (click)="onNewsClick(news)">
+            <div class="newsDetail__other__news-content">
+              <img class="newsDetail__other__news-content_img" [src]="news.image_info?.path ? news.image_info?.path :  './assets/icon/placeholder.svg'" alt="{{ news.title }}">
+              <div class="newsDetail__other__news-content__text">
+                <span class="newsDetail__other__news-title">{{ news?.title }}</span>
+                <span class="newsDetail__other__news-date">{{ moment(news?.created_date).locale('vi').format('DD MMMM yyyy') }}</span>
+              </div>
+            </div>
+            <hr width="100%">
+          </div>
+        </div>
+   </div>
+    <div class="newsDetail--content">
+      <div class="newsDetail--nav">
+        <div *ngFor="let category of getCategoryList()">
+            <h3 class="newsDetail--nav__title">{{ category }}</h3>
+            <hr width="100%">
+            <p *ngIf="getNewsByCategory(category) == null || getNewsByCategory(category).length === 0; else hasData">Không có tin tức liên quan</p>
+
+            <ng-template #hasData>
+              <div class="newsDetail--related-news" *ngFor="let news of getNewsByCategory(category)">
+                <div class="newsDetail--childNews">
+                  <img class="newsDetail--childNews-img" [src]="news.image_info?.path ? news.image_info?.path :  './assets/icon/placeholder.svg'" alt="{{ news.title }}">
+                  <div class="newsDetail--childNews-content">
+                    <div class="newsDetail--childNews-text">
+                      <span class="newsDetail--content--sm-title">{{ news?.title }}</span>
+                      <span class="newsDetail--content--date">{{ moment(news?.created_date).locale('vi').format('DD MMMM yyyy') }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+
+        </div>
+    </div>
+
+      <div class="newsDetail--content-link">
+            <h2 class="newsDetail--nav__title">Liên Kết</h2>
+            <hr width="100%">
+            <div class="newsDetail--header__icon" style="display: flex;">
+              <div class="elementor-grid-item">
+                <a>
+                  <img src="assets/img/facebook_round.png">
+                </a>
+              </div>
+              <div class="elementor-grid-item">
+                <a>
+                  <img src="assets/img/twitter.png">
+                </a>
+              </div>
+              <div class="elementor-grid-item">
+                <a>
+                  <img src="assets/img/linkedin.png">
+                </a>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+<ng-template #noData>
+  <div class="w-100">
+    <span>Không có tin tức liên quan</span>
+  </div>
+</ng-template>

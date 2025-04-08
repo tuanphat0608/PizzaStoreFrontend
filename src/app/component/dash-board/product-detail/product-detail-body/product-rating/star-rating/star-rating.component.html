@@ -1,0 +1,5 @@
+<div class="star-rating" (mouseover)="onMouseOver($event)">
+  <span *ngFor="let star of stars; let i = index" (click)="rate(i + 1)" [class.selected]="i < rating">
+    <mat-icon>{{star}}</mat-icon>
+  </span>
+</div>

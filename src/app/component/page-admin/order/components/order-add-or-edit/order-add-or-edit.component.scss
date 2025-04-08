@@ -1,0 +1,128 @@
+.box-upload {
+  width: 100%;
+  height: 150px;
+  border: 1px dashed #c1c1c1;
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+
+  button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+  }
+  .hint-text,
+  img {
+    font-size: 16px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #2c2c2c;
+  }
+  img {
+    height: 100px;
+    width: auto;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  .mat-mdc-dialog-content {
+    height: 100%;
+    max-height: calc(100vh - 130px) !important;
+  }
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.NgxEditor__Wrapper {
+  height: 770px !important;
+  overflow: auto;
+}
+
+
+.page-container {
+  padding: 20px;
+  max-width: 1600px;
+  margin: auto;
+}
+
+.action-group {
+  display: flex;
+  gap: 10px;
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+.img-box {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: flex;
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.mat-column-image_info {
+  width: 300px;
+  max-width: 300px;
+}
+
+.mat-column-actions,
+.mat-column-is_active {
+  width: 120px;
+  max-width: 120px;
+}
+
+.mat-column-check {
+  width: 80px;
+  max-width: 80px;
+}
+
+:host ::ng-deep {
+  mat-slide-toggle {
+    .mdc-switch__icons {
+      display: none !important;
+    }
+    .mdc-switch:enabled .mdc-switch__shadow {
+      box-shadow: #00a67e;
+    }
+  }
+  .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-focus-state-layer-color: #00a67e;
+    --mdc-switch-selected-handle-color: #00a67e;
+    --mdc-switch-selected-hover-state-layer-color: #00a67e;
+    --mdc-switch-selected-pressed-state-layer-color: #00a67e;
+    --mdc-switch-selected-focus-handle-color: #134439;
+    --mdc-switch-selected-hover-handle-color: #134439;
+    --mdc-switch-selected-pressed-handle-color: #134439;
+    --mdc-switch-selected-focus-track-color: #73ddc4;
+    --mdc-switch-selected-hover-track-color: #73ddc4;
+    --mdc-switch-selected-pressed-track-color: #73ddc4;
+    --mdc-switch-selected-track-color: #73ddc4;
+  }
+}
+
+::ng-deep {
+  .mdc-checkbox__ripple,
+  .mat-mdc-checkbox-ripple {
+    opacity: 0 !important;
+    display: none !important;
+  }
+}

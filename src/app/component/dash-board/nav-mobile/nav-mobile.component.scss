@@ -1,0 +1,166 @@
+@import "src/app/app.component";
+.bottomNav {
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  &__menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  &__item {
+    flex-basis: 0;
+    flex-grow: 1;
+    &--link{
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px 7px 10px;
+      text-decoration: none;
+    }
+    &--icons {
+      margin-bottom: 3px;
+      width: 100%;
+      text-align: center;
+    }
+
+    &--text {
+      color: #979797;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 13px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+
+
+%align-center {
+  display: flex;
+  align-items: center;
+}
+
+%align-end {
+  display: flex;
+  align-items: flex-end;
+}
+%align-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+.bottomNav__overlay {
+  display: none;
+  background-color: $blackOverlay;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  z-index: 999999;
+}
+
+.sideMenu {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+}
+
+
+.bottomNav-mobile {
+  display: none;
+  opacity: 0;
+  background: $light;
+  position: fixed;
+  width: 320px;
+  height: calc(100vh - 60px);
+  max-width: 100%;
+  padding: 0.5rem calc((100vh - 1200px) / 2);
+  top: 0;
+  right: 0;
+  bottom: 60px;
+  z-index: 999999;
+  &__header{
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    height: 30px;
+  }
+  &__menu {
+
+    @extend %align-start;
+    justify-content: space-between;
+    flex-direction: column;
+    list-style: none;
+    text-align: center;
+    margin-right: 40px;
+    width: 320px;
+    max-width: 100%;
+    height: 52px;
+    transition: transform 0.3s;
+
+    &:hover {
+      // color: $orangeRed;
+      // transition: all 0.3s ease;
+      img{
+        transform: scale(1.2);
+      }
+    }
+    &--link {
+      width: 100%;
+      height: 52px;
+      cursor: pointer;
+      color: $dark;
+      @extend %align-start;
+      text-decoration: none;
+      padding: 0 1rem;
+      margin: 1rem;
+      display: flex;
+      justify-content: left;
+
+    }
+
+    #buttonMobile {
+      padding: 5px 12px;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      background: $orangeRed;
+      margin-left: 16px;
+      color: $light;
+
+      &:hover {
+        background: $darkGray;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+}
+
+.animated-nav-overlay {
+  display: block;
+}
+
+.animated-nav-mobile {
+  display: flex;
+  animation: fadein 0.5s;
+  opacity: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: $accentGradient;
+
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

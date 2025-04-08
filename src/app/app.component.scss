@@ -1,0 +1,80 @@
+@import "./colors";
+@import "./media-queries";
+%center-container {
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70vw;
+  @include for-size("desktop-lg") {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90vw;
+  }
+  @include for-size("tablet") {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 95vw;
+  }
+  @include for-size("phone-sm") {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 95vw;
+  }
+
+}
+
+.main-container {
+  @extend %center-container;
+}
+
+
+label  {
+  font-family: Inter, sans-serif;
+}
+span   {
+  font-family: Inter, sans-serif;
+}
+.home-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+
+}
+.home-body {
+  margin-top: 120px;
+  @include for-size("tablet") {
+    margin-top: 120px;
+  }
+  @include for-size("phone-sm") {
+    margin-top: 195px;
+  }
+}
+.home-footer {
+  padding-bottom: 0;
+  @include for-size("tablet") {
+    padding-bottom: 60px;
+
+  }
+  @include for-size("phone-sm") {
+    padding-bottom: 60px;
+
+  }
+}
+
+.bottomNav-mobile {
+  display: none;
+  position: fixed;
+  z-index: 9999999;
+  background-color: white;
+  width: 100%;
+  bottom: 0;
+  height: 60px;
+  @include for-size("tablet") {
+    display: initial;
+  }
+  @include for-size("phone-sm") {
+    display: initial;
+  }
+}

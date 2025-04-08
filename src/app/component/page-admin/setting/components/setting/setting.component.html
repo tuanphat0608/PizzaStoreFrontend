@@ -1,0 +1,58 @@
+<form action="" [formGroup]="form">
+
+  <div class="page-container">
+    <div class="d-flex flex-wrap p-5">
+      <div class="w-50 p-3">
+        <div class="form-group p-3">
+          <label>URL tin tức cho banner quảng cáo:</label>
+          <input type="text" class="form-control" formControlName="url_banner" />
+        </div>
+        <label class="p-3">Upload ảnh cho banner quảng cáo:</label>
+        <div class="box-upload">
+          <ng-container *ngIf="imageInfo; else noImage">
+            <img [src]="imageInfo" alt="" />
+          </ng-container>
+          <ng-template #noImage>
+            <p class="hint-text">Tải ảnh banner quảng cáo</p>
+          </ng-template>
+          <input type="file" hidden #fileInput (change)="uploadAvatar($event)" />
+          <button class="btn btn-default" (click)="fileInput.click()" matTooltip="Chọn ảnh">
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+        </div>
+        <label class="p-3">Upload ảnh cho banner quảng cáo cho Mobile:</label>
+        <div class="box-upload">
+          <ng-container *ngIf="imageInfoMobile; else noImageMobile">
+            <img [src]="imageInfoMobile" alt="" />
+          </ng-container>
+          <ng-template #noImageMobile>
+            <p class="hint-text">Tải ảnh banner quảng cáo cho Mobile</p>
+          </ng-template>
+          <input type="file" hidden #fileInput2 (change)="uploadAvatarMobile($event)" />
+          <button class="btn btn-default" (click)="fileInput2.click()" matTooltip="Chọn ảnh">
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="w-50 p-3">
+        <div class="form-group p-3">
+          <label>URL Video review mới nhất:</label>
+          <input type="text" class="form-control" formControlName="url_video" />
+        </div>
+
+      </div>
+      <div class="w-100 d-flex justify-content-center align-items-center">
+        <button class="m-3" mat-raised-button color="primary" (click)="onSave()">
+          <mat-icon>update</mat-icon>
+          Lưu
+        </button>
+        <button class="m-3" mat-raised-button  (click)="onSave()">
+          <mat-icon>cancel</mat-icon>
+          Huỷ
+        </button>
+      </div>
+    </div>
+
+  </div>
+</form>
+

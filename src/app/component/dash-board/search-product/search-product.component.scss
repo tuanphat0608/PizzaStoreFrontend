@@ -1,0 +1,39 @@
+@import "src/app/app.component";
+.search-product{
+  
+    &_product-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px; /* Khoảng cách giữa các sản phẩm */
+      margin-top: 28px;
+      margin-bottom: 10px;
+      justify-content: flex-start;
+    
+      a {
+        text-decoration: none;
+        color: black;
+        font-size: 13px;
+        font-family: "Inter", sans-serif;
+      }
+      &__item{
+        width: calc((100% - 40px)/5);
+        @include for-size("tablet") {
+          width: initial;
+        }
+    
+        @include for-size("phone-sm") {
+          width: calc((100% - 10px)/2);
+        }
+      }
+    }
+    .product {
+      flex: 0 0 calc(33.33% - 20px); /* Kích thước cố định cho từng sản phẩm, 33.33% cho 3 cột trên một hàng, với 20px khoảng cách */
+      border: 1px solid #ccc; /* Đường viền sản phẩm */
+      padding: 10px;
+      background-color: #fff; /* Màu nền sản phẩm */
+    }
+    
+    .product a {
+      text-decoration: none; /* Loại bỏ đường link mặc định */
+    }
+}

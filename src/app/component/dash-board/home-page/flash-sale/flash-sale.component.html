@@ -1,0 +1,115 @@
+<div class="flash-sale card" [ngClass]="{'white-bg': isWhiteBG}">
+  <div class="flash-sale__header" style="width: 100%;">
+    <div class="thumb"  [ngClass]="{'hide-logo': isHidingLogo}">
+      <div class="thumb_logo">
+        <img decoding="async" class="desktop" src="assets/flashsale-mobile.png" alt="Trang chủ"
+        title="Trang chủ">
+      </div>
+      <div class="thumb_coutdown">
+        <div class="thumb_coutdown_title"> Sẽ kết thúc sau: </div>
+        <div class="thumb_coutdown_days">
+          <div class="thumb_coutdown_days_item">{{ days < 10? '0': '' }}{{ days }}</div>
+<!--          <div class="thumb_coutdown_separate "> : </div>-->
+          <div class="thumb_coutdown_days_item">{{ hours < 10? '0': '' }}{{ hours }}</div>
+<!--          <div class="thumb_coutdown_separate"> : </div>-->
+          <div class="thumb_coutdown_days_item">{{ minutes < 10? '0': '' }}{{ minutes }}</div>
+<!--          <div class="thumb_coutdown_separate"> : </div>-->
+          <div class="thumb_coutdown_days_item">{{ seconds < 10? '0': '' }}{{ seconds }}</div>
+        </div>
+      </div>
+        </div>
+  </div>
+
+
+<!-- <carousel [itemsPerSlide]="5" 
+            [singleSlideOffset]="true"
+            [startFromIndex]="6"
+            [interval]="3000">
+  <slide *ngFor="let product of products; let i = index" >
+    <app-product-flashsale [product]="product"></app-product-flashsale>
+  </slide>
+</carousel> -->
+
+ 
+  
+  <!-- <div class="slider d-flex">
+    <div class="slide-track infinite-scroll">
+      <div class="slide" *ngFor="let product of products, index as i">
+        <app-product-flashsale [product]="product"></app-product-flashsale>
+      </div>
+    </div>
+  </div> -->
+  <div class="flash-sale-slider" style="align-items: center;display: flex;flex-direction: column; width: 100%;">
+
+  <div class="slider-laptop d-flex">
+    <p-carousel [value]="products" 
+                [numVisible]="5" 
+                [numScroll]="1" 
+                [showIndicators]="false" 
+                [showNavigators]="false" 
+                [style.width.%]="100" 
+                [style.max-width.px]="1200" 
+                [autoplayInterval]="2000"
+                [circular]="true"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="productItem" (click)=" navigateToProductDetail(product)">
+          <a class="card " style="border-radius: 15px" [ngClass]="{'shadow': isShadow}">
+            <div class="productItem__thumbnail-item">
+              <img class="productItem__thumbnail-item--avatar" width="100"  height="100"
+                  src="{{product.images?.[0]?.path}}"
+                  alt="Trang chủ" decoding="async" title="Trang chủ">
+            </div>
+            <div class="productItem__entry">
+              <span class="productItem__entry--price">
+                <ins>
+                  <label>
+                    {{product.price | CustomeCurrency}}  ₫
+                  </label>
+                </ins>
+              </span>
+            </div>
+              <app-progressbar class="appProgress" [progressValue]="randomProgressValue" [progressText]="randomProgressText"></app-progressbar>
+          </a>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div class="slider-phone d-flex">
+    <p-carousel [value]="products" 
+                [numVisible]="5" 
+                [numScroll]="1" 
+                [showIndicators]="false" 
+                [showNavigators]="false" 
+                [style.width.%]="100" 
+                [style.max-width.px]="1200" 
+                [autoplayInterval]="2000"
+                [circular]="true"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="productItem" (click)=" navigateToProductDetail(product)">
+          <a class="card " style="border-radius: 15px" [ngClass]="{'shadow': isShadow}">
+            <div class="productItem__thumbnail-item">
+              <img class="productItem__thumbnail-item--avatar" width="100"  height="100"
+                  src="{{product.images?.[0]?.path}}"
+                  alt="Trang chủ" decoding="async" title="Trang chủ">
+            </div>
+            <div class="productItem__entry">
+              <span class="productItem__entry--price">
+                <ins>
+                  <label>
+                    {{product.price | CustomeCurrency}}  ₫
+                  </label>
+                </ins>
+              </span>
+            </div>
+              <app-progressbar class="appProgress" [progressValue]="randomProgressValue" [progressText]="randomProgressText"></app-progressbar>
+          </a>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>
+</div>
+

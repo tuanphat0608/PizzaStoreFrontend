@@ -1,0 +1,30 @@
+@import "src/app/app.component";
+
+.list-product-seen{
+    .product-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Khoảng cách giữa các sản phẩm */
+        margin-top: 28px;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+        flex-direction: row;
+        a {
+          text-decoration: none;
+          color: black;
+          font-size: 13px;
+          font-family: "Inter", sans-serif;
+        }
+        &__item{
+          width: calc((100% - 40px)/5);
+          @include for-size("tablet") {
+            width: initial;
+          }
+      
+          @include for-size("phone-sm") {
+            width: initial;
+          }
+        }
+      }
+
+}
