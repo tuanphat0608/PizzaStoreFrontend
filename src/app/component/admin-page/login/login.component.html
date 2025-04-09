@@ -17,16 +17,18 @@
 
                         <mat-form-field>
                             <mat-label>Password</mat-label>
-                            <input type="{{ isShowPassword ?  'password' : 'text' }}" matInput [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-                            <mat-icon matSuffix (click)="isShowPassword = !isShowPassword">{{ isShowPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                            <input type="{{ isShowPassword ?  'password' : 'text' }}" matInput [(ngModel)]="password"
+                                [ngModelOptions]="{standalone: true}">
+                            <mat-icon matSuffix (click)="isShowPassword = !isShowPassword">{{ isShowPassword ?
+                                'visibility' : 'visibility_off' }}</mat-icon>
                         </mat-form-field>
 
                         <div class="d-flex justify-content-end">
 
 
                             <button mat-raised-button color="primary" type="submit" (click)="submitForm()">
-                Login
-              </button>
+                                Login
+                            </button>
 
                         </div>
                     </form>

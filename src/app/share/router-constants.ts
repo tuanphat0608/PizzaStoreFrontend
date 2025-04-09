@@ -9,4 +9,5 @@ export class RouterConstants {
    static ERROR = 'error'
 
    public static HOMEPAGE = '';
+   public static ORDER_PAGE = 'order'
 }

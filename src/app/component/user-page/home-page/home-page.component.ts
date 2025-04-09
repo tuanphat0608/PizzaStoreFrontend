@@ -4,8 +4,8 @@ import {Drink, DrinkOrder, FoodOrder, Pizza, PizzaOrder} from "../../../model/mo
 import {ProductService} from "../../../share/services/product.service";
 import {finalize} from "rxjs";
 import { LoadingService } from '../../admin-page/common/services/loading.service';
-import { OrderService } from '../../admin-page/order/order.service';
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from '../../admin-page/order/order.service';
 
 @Component({
   selector: 'home-page',

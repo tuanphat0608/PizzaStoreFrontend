@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {FoodOrder} from "../../../model/model";
 import { OrderStatus } from 'src/app/core/common.enum';
+import { FoodOrder } from 'src/app/model/model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })

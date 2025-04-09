@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './common/guards/auth.guard';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () =>
-      import('src/app/component/user-page/home-page/home-page.module').then(m => m.HomePageModule),
-  },
-  {
     path: 'admin',
-    loadChildren: () =>
-      import('src/app/component/admin-page/admin.module').then(m => m.AdminModule),
-  },
+    children: [
+      { path: 'login', component: LoginComponent },
+      {
+        path: 'order',
+        component: OrderComponent,
+        canActivate: [AuthGuard] // Optional, see below
+      },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AdminRoutingModule { }

@@ -13,7 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: false
 })
 export class LoginComponent {
 
@@ -29,7 +30,7 @@ export class LoginComponent {
     private loader: LoadingService,
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
-    ) {
+  ) {
     this.title.setTitle('Login - Mi3s');
     localStorage.removeItem('userData');
     this.authService.isAuthenticated.next(false);
@@ -45,27 +46,12 @@ export class LoginComponent {
       .subscribe(
         {
           next: resData => {
-            if(resData.firstLogin){
-              this.authService.isAuthenticated.next(false);
-              this.router.navigate([RouterConstants.ADMIN, RouterConstants.CHANGE_PASSWORD])
-              this.setForm();
-              this.authService.getUserpermission().subscribe((res:any)=>{
-                this.localStorageService.set('role', res.role);
-                this.authService.userRole.next(res.role)
-              })
-            }else{
-              this.setForm();
-              this.authService.getUserpermission().subscribe((res:any)=>{
-                this.localStorageService.set('role', res.role);
-                this.authService.userRole.next(res.role)
-                if(res.role != 'employee'){
-                  this.router.navigate([RouterConstants.ADMIN, RouterConstants.PRODUCT_PAGE])
-
-                }else{
-                  this.router.navigate([RouterConstants.ADMIN, RouterConstants.ORDER_PAGE])
-                }
-              })
-            }
+            this.setForm();
+            this.authService.getUserpermission().subscribe((res: any) => {
+              this.localStorageService.set('role', res.role);
+              this.authService.userRole.next(res.role)
+              this.router.navigate([RouterConstants.ADMIN, RouterConstants.ORDER_PAGE])
+            })
             this.toastr.success('Đăng nhập thành công')
           },
           error: errorMessage => {

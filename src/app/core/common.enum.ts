@@ -42,22 +42,22 @@ export let PostCategories: TreeNode[] = [
 ]
 
 export enum OrderStatus {
-  CONFIRMED,
-  COOKED,
-  CANCEL,
-  DONE,
-  PENDING,
-  ALL
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  COOKED = 'COOKED',
+  DELIVERED = 'DELIVERED',
+  COMPLETED = 'COMPLETED',
+  ALL = 'ALL'
 }
 
-export enum Crust{
-  THIN,
-  THICK,
-  CRISPY
+export enum Crust {
+  THIN = 'THIN',
+  THICK = 'THICK',
+  CRISPY = 'CRISPY'
 }
 
-export enum Size{
-  SMALL,
-  MEDIUM,
-  LARGE
+export enum Size {
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  LARGE = 'LARGE'
 }

@@ -27,14 +27,8 @@ export class AuthGuard {
         this.permisisonService.checkToken(isAuth?._token).subscribe(data => {
           const userRolesFromStorage = localStorage.getItem('role');
           const userRoles = userRolesFromStorage ? JSON.parse(userRolesFromStorage) : [];
-          const requiredRoles = next.data['requiredRoles'];
-          if (data && requiredRoles.some(role => userRoles.includes(role))) {
             observer.next(true);
             observer.complete();
-          } else {
-            observer.next(this.router.parseUrl(`${RouterConstants.ADMIN}/${RouterConstants.LOGIN}`));
-            observer.complete();
-          }
         });
       });
     } else {

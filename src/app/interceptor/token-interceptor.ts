@@ -1,4 +1,4 @@
-import {Inject, Injectable, Optional} from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -6,17 +6,14 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import {Router} from '@angular/router';
-import {Observable, throwError, EMPTY} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
-import {BASE_URL} from './base-url-interceptor';
-import {TokenService} from '../auth';
-import {CoreUrl} from '../share/constant/url.constant';
-import {environment} from 'src/environments/environment';
-import {User} from "../component/admin-page/login/user.model";
+import { Router } from '@angular/router';
+import { Observable, throwError, EMPTY } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { BASE_URL } from './base-url-interceptor';
+import { TokenService } from '../auth';
+import { environment } from 'src/environments/environment';
+import { User } from "../component/admin-page/login/user.model";
 
-import AntPathMatcher from '@howiefh/ant-path-matcher';
-import {RouterConstants} from "../share/router-constants";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -30,96 +27,129 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   allowApiKey: string[] = [
-    '/api/v1/order',
+    '/api/v1/orders',
     '/api/v1/auth'
   ]
 
+  //   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  //     var matcher = new AntPathMatcher();
+
+  //     const handler = () => {
+
+  //     };
+  //     const userData: {
+  //       email: string;
+  //       id: string;
+  //       _token: string;
+  //       _tokenExpirationDate: string;
+  //     } = JSON.parse(localStorage.getItem('userData'));
+  //     var user;
+  //     if(request.method != 'POST' && this.allowApiKey.includes(request.url)){
+  //       return next
+  //         .handle(
+  //           request.clone({
+  //             headers: request.headers.append(`${environment.apiKeyType}`, environment.apiKey),
+  //             withCredentials: true,
+  //           })
+  //         )
+  //         .pipe(
+  //           catchError((error: HttpErrorResponse) => {
+  //             if (error.status === 401) {
+  // //handle 401
+  //             }
+  //             // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
+  //             return throwError(() => error);
+  //           }),
+  //           tap(() => handler())
+  //         );
+  //     }
+
+  //     if (request.method != 'GET' && userData) {
+  //       user = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+  //       if (user) {
+  //         if (!user.token) {
+  //           localStorage.removeItem('userData')
+  //           this.router.navigateByUrl(`${RouterConstants.ADMIN}/${CoreUrl.LOGIN}`)
+  //           return throwError(() => 'Token Expired');
+  //         }
+  //       }
+  //       if (user && user.token) {
+  //         return next
+  //           .handle(
+  //             request.clone({
+  //               headers: request.headers.append(`${environment.authType}`, 'Bearer ' + user.token),
+  //               withCredentials: true,
+  //             })
+  //           )
+  //           .pipe(
+  //             catchError((error: HttpErrorResponse) => {
+  //               if (error.status === 401) {
+  //                 //handle 401
+  //               }
+  //               // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
+  //               return throwError(() => error);
+  //             }),
+  //             tap(() => handler())
+  //           );
+  //       }
+  //     } else {
+  //       return next
+  //         .handle(
+  //           request.clone({
+  //             headers: request.headers.append(`${environment.apiKeyType}`, environment.apiKey),
+  //             withCredentials: true,
+  //           })
+  //         )
+  //         .pipe(
+  //           catchError((error: HttpErrorResponse) => {
+  //             if (error.status === 401) {
+  // //handle 401
+  //             }
+  //             // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
+  //             return throwError(() => error);
+  //           }),
+  //           tap(() => handler())
+  //         );
+  //     }
+
+
+
+  //     return next.handle(request).pipe(
+  //       tap(() => handler()));
+  //   }
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    var matcher = new AntPathMatcher();
+    const handler = () => { };
 
-    const handler = () => {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const user = userData && userData._token
+      ? new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate))
+      : null;
 
-    };
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData'));
-    var user;
-    if(request.method != 'POST' && this.allowApiKey.includes(request.url)){
-      return next
-        .handle(
-          request.clone({
-            headers: request.headers.append(`${environment.apiKeyType}`, environment.apiKey),
-            withCredentials: true,
-          })
-        )
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-//handle 401
-            }
-            // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
-            return throwError(() => error);
-          }),
-          tap(() => handler())
-        );
+    const isExcluded =
+      (request.method === 'POST' && request.url.endsWith('/orders')) ||
+      (request.method === 'GET' && request.url.endsWith('/drinks')) ||
+      (request.method === 'GET' && request.url.endsWith('/pizzas'));
+
+    if (!isExcluded && user?.token) {
+      // Inject Authorization header
+      request = request.clone({
+        headers: request.headers.set(`${environment.authType}`, `Bearer ${user.token}`),
+        withCredentials: true,
+      });
     }
-
-    if (request.method != 'GET' && userData) {
-      user = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
-      if (user) {
-        if (!user.token) {
-          localStorage.removeItem('userData')
-          this.router.navigateByUrl(`${RouterConstants.ADMIN}/${CoreUrl.LOGIN}`)
-          return throwError(() => 'Token Expired');
-        }
-      }
-      if (user && user.token) {
-        return next
-          .handle(
-            request.clone({
-              headers: request.headers.append(`${environment.authType}`, 'Bearer ' + user.token),
-              withCredentials: true,
-            })
-          )
-          .pipe(
-            catchError((error: HttpErrorResponse) => {
-              if (error.status === 401) {
-                //handle 401
-              }
-              // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
-              return throwError(() => error);
-            }),
-            tap(() => handler())
-          );
-      }
-    } else {
-      return next
-        .handle(
-          request.clone({
-            headers: request.headers.append(`${environment.apiKeyType}`, environment.apiKey),
-            withCredentials: true,
-          })
-        )
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-//handle 401
-            }
-            // this.router.navigateByUrl(`/${CoreUrl.DASHBOARD}`)
-            return throwError(() => error);
-          }),
-          tap(() => handler())
-        );
-    }
-
-
 
     return next.handle(request).pipe(
-      tap(() => handler()));
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Optionally handle 401 (unauthorized)
+        }
+        return throwError(() => error);
+      }),
+      tap(() => handler())
+    );
   }
+
 
   private shouldAppendToken(url: string) {
     return !this.hasHttpScheme(url) || this.includeBaseUrl(url);
