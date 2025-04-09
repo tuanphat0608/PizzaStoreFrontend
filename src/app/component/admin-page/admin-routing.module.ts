@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
-        canActivate: [AuthGuard] // Optional, see below
+        canActivate: [AuthGuard]
       },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]

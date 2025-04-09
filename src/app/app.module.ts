@@ -18,7 +18,6 @@ import {CustomCurrencyPipe} from "./share/pipes/custom_currency_pipe";
 import {CurrencyPipe} from "@angular/common";
 import {provideToastr, ToastrModule} from "ngx-toastr";
 import {PixelModule} from "@felipeclopes/ngx-pixel";
-import { HomePageModule } from './component/user-page/home-page/home-page.module';
 import { UserPageModule } from './component/user-page/user-page.module';
 
 @NgModule({

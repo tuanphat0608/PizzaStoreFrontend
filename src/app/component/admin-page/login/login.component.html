@@ -1,40 +1,25 @@
 <div class="login-wrapper">
-    <div class="login-wrapper__content">
-        <div class="align-items-center justify-content-center container-fluid" id="login-page">
-            <div class="d-flex justify-content-center">
-                <div class="box d-flex flex-column p-4 border border-dark card">
-                    <h6 class="align-self-center">Phat PIZZA STORE</h6>
-                    <div class="error-message">
-                    </div>
+    <div class="login-card">
+        <h2 class="store-title">Phat's Pizza Store</h2>
 
-                    <form class="d-flex flex-column" #authForm="ngForm">
+        <form #authForm="ngForm" class="login-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput [(ngModel)]="email" [ngModelOptions]="{ standalone: true }" required />
+            </mat-form-field>
 
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input [type]="isShowPassword ? 'text' : 'password'" matInput [(ngModel)]="password"
+                    [ngModelOptions]="{ standalone: true }" required />
+                <mat-icon matSuffix (click)="isShowPassword = !isShowPassword" style="cursor: pointer;">
+                    {{ isShowPassword ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+            </mat-form-field>
 
-                        <mat-form-field>
-                            <mat-label>Username</mat-label>
-                            <input type="text" matInput [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
-                        </mat-form-field>
-
-                        <mat-form-field>
-                            <mat-label>Password</mat-label>
-                            <input type="{{ isShowPassword ?  'password' : 'text' }}" matInput [(ngModel)]="password"
-                                [ngModelOptions]="{standalone: true}">
-                            <mat-icon matSuffix (click)="isShowPassword = !isShowPassword">{{ isShowPassword ?
-                                'visibility' : 'visibility_off' }}</mat-icon>
-                        </mat-form-field>
-
-                        <div class="d-flex justify-content-end">
-
-
-                            <button mat-raised-button color="primary" type="submit" (click)="submitForm()">
-                                Login
-                            </button>
-
-                        </div>
-                    </form>
-                </div>
-
+            <div class="submit-wrapper">
+                <button mat-raised-button color="primary" type="submit" (click)="submitForm()">Login</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
