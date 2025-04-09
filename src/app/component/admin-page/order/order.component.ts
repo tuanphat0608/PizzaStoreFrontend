@@ -19,29 +19,19 @@ import { LocalStorageService } from 'src/app/share/services/storage.service';
 })
 export class OrderComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator: MatPaginator;
-  public displayedColumns: string[] = [
-    'check',
-    'id',
-    'customer',
-    'phone',
-    'created_date',
-    'status',
-    'address',
-    'payment_method',
-    'actions',
-  ];
-
+  displayedColumns: string[] = ['name', 'phoneNumber', 'address', 'price', 'createdTime', 'status', 'actions'];
   public dataSource: MatTableDataSource<FoodOrder> =
     new MatTableDataSource<FoodOrder>([]);
-  public isAllChecked: boolean = false;
   public totalItems: number = 0;
   public pageSize: number = 10;
   public pageIndex: number = 0;
   public keySearch: string;
   statusList: OrderStatus[] = [];
   selectedStatus: string = '';
-  selectedOrderStatus: OrderStatus = OrderStatus.PENDING
+  selectedOrderStatus: OrderStatus = OrderStatus.ALL
   role: string = ''
+  OrderStatus = OrderStatus;
+  orderStatuses: string[] = Object.values(OrderStatus);
   constructor(private orderService: OrderService, private router: Router, private loader: LoadingService, private matDialog: MatDialog, private localStorageService: LocalStorageService,
   ) { }
 

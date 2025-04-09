@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
 
-  public isShowPassword: boolean = true;
+  public isShowPassword: boolean = false;
 
   public email: string = '';
   public password: string = '';
@@ -31,7 +31,7 @@ export class LoginComponent {
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
   ) {
-    this.title.setTitle('Login - Mi3s');
+    this.title.setTitle('Login - Pizza Store');
     localStorage.removeItem('userData');
     this.authService.isAuthenticated.next(false);
   }
