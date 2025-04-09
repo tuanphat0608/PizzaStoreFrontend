@@ -40,3 +40,24 @@ export let PostCategories: TreeNode[] = [
     }]
   },
 ]
+
+export enum OrderStatus {
+  CONFIRMED,
+  COOKED,
+  CANCEL,
+  DONE,
+  PENDING,
+  ALL
+}
+
+export enum Crust{
+  THIN,
+  THICK,
+  CRISPY
+}
+
+export enum Size{
+  SMALL,
+  MEDIUM,
+  LARGE
+}

@@ -1,0 +1,73 @@
+<mat-tab-group>
+
+  <!-- Tab 1: Choose Pizza -->
+  <mat-tab label="Choose Pizza">
+    <div class="tab-content">
+      <div *ngFor="let order of pizzaOrders" class="item-card">
+        <h3>{{ order.pizza.name }} - {{ order.pizza.size }} ({{ order.pizza.crust }})</h3>
+        <p>{{ order.pizza.description }}</p>
+        <p><strong>Price:</strong> ${{ order.pizza.price }}</p>
+        <mat-form-field appearance="outline" class="quantity-input">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" [(ngModel)]="order.quantity" min="0">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- Tab 2: Choose Drink -->
+  <mat-tab label="Choose Drink">
+    <div class="tab-content">
+      <div *ngFor="let order of drinkOrders" class="item-card">
+        <h3>{{ order.drink.name }}</h3>
+        <p>{{ order.drink.description }}</p>
+        <p><strong>Price:</strong> ${{ order.drink.price }}</p>
+        <mat-form-field appearance="outline" class="quantity-input">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" [(ngModel)]="order.quantity" min="0">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- Tab 3: Payment and Delivery -->
+  <mat-tab label="Payment and Delivery">
+    <div class="tab-content">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="customerName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone Number</mat-label>
+        <input matInput [(ngModel)]="customerPhone" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Delivery Address</mat-label>
+        <textarea matInput [(ngModel)]="customerAddress" required></textarea>
+      </mat-form-field>
+
+      <div class="review-section">
+        <h4>Your Order:</h4>
+        <ul>
+          <ng-container *ngFor="let p of pizzaOrders">
+            <li *ngIf="p.quantity > 0">
+              🍕 {{ p.pizza.name }} ({{ p.quantity }})
+            </li>
+          </ng-container>          
+          <ng-container *ngFor="let d of drinkOrders">
+            <li *ngIf="d.quantity > 0">
+              🥤 {{ d.drink.name }} ({{ d.quantity }})
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="submitOrder()">
+        Submit Order
+      </button>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>

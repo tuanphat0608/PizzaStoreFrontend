@@ -1,0 +1,107 @@
+<div class="page-container">
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6" style="display: flex; align-items: center; gap: 20px;">
+      <div class="form-group" style="max-width: 500px;">
+        <label >Tìm kiếm</label>
+        <div class="input-group mb-3" style="width: 500px;">
+          <input type="text" class="form-control" placeholder="Tìm kiếm theo tên sản phẩm" [(ngModel)]="keySearch"
+            (keyup.enter)="onSeachChange()">
+          <span class="input-group-text" (click)="onSeachChange()"><mat-icon>search</mat-icon></span>
+        </div>
+      </div>
+      <div class="form-group" style="max-width: 500px;">
+        <label >Tìm theo trạng thái</label>
+        <div class="input-group mb-3">
+        <select [(ngModel)]="selectedStatus" style="height: 35px;" (ngModelChange)="onStatusChange()">
+          <option value="" disabled>Trạng Thái</option>
+          <option *ngFor="let status of statusList" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="button-group d-flex  gap-2 justify-content-end">
+
+        <button mat-raised-button color="warn" (click)="onDeleteMultiple()"
+          *ngIf="selectedElements && selectedElements.length != 0">
+          <mat-icon>delete</mat-icon>
+          Delete Mutiple
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Check Column -->
+    <ng-container matColumnDef="check">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox [(ngModel)]="isAllChecked" (ngModelChange)="onCheckAll($event)"></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [(ngModel)]="element.checked" (ngModelChange)="onCheckChange()"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Product Name Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Mã đơn hàng </th>
+      <td mat-cell *matCellDef="let element"> <a href="javascript:void(0);" (click)="onEdit(element)" style="cursor: pointer;">{{element.id}} </a> </td>
+    </ng-container>
+
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="created_date">
+      <th mat-header-cell *matHeaderCellDef> Ngày tạo </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_date ? moment(element.created_date).format("DD/MM/YYYY"):'' }} </td>
+    </ng-container>
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef> Khách hàng </th>
+      <td mat-cell *matCellDef="let element"> {{ element.customer?.name ? element.customer?.name :"" }} </td>
+    </ng-container>
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> SĐT Khách hàng </th>
+      <td mat-cell *matCellDef="let element"> {{ element.customer?.phone ? element.customer?.phone :''}} </td>
+    </ng-container>
+
+    <!-- Product Category Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
+      <td mat-cell *matCellDef="let element"> {{getStatus(element.status)}} </td>
+    </ng-container>
+
+    <!-- Stock Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Địa chỉ </th>
+      <td mat-cell *matCellDef="let element"> {{element.address ? element.address :''}}, {{element.ward ? element.ward :''}}, {{element.district ? element.district :''}}, {{element.city ? element.city :''}}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="payment_method">
+      <th mat-header-cell *matHeaderCellDef> Phương thức thanh toán </th>
+      <td mat-cell *matCellDef="let element"> {{element.payment_method}} </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Chức Năng </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="action-group">
+          <mat-icon class="text-success" matTooltip="Chỉnh Sửa" (click)="onEdit(element)">edit</mat-icon>
+         <mat-icon class="text-danger" matTooltip="Xóa" *ngIf="role == 'admin'|| role == 'manager'" (click)="onDelete(element)">delete</mat-icon>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="totalItems" [pageSize]="pageSize" [showFirstLastButtons]="true"
+    [pageIndex]="pageIndex" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page" (page)="onPageChange($event)">
+  </mat-paginator>
+
+</div>

@@ -8,12 +8,12 @@ import {
   timer,
 } from 'rxjs';
 import { share } from 'rxjs/operators';
-import { LocalStorageService } from '../share/services/storage.service';
 import { TOKEN_KEY, TOKEN_TYPE } from '../system.constant';
 import { currentTimestamp, filterObject } from './helpers';
 import { Token } from './interface';
 import { BaseToken } from './token';
 import { TokenFactory } from './token-factory.service';
+import { LocalStorageService } from '../share/services/storage.service';
 
 @Injectable({
   providedIn: 'root',

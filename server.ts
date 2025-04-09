@@ -26,7 +26,7 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', distFolder);
   server.use('/api', createProxyMiddleware({
-    target: "http://127.0.0.1:8081/api",
+    target: "http://127.0.0.1:8080/api",
     logger: console,
   }));
 
@@ -64,7 +64,7 @@ export function app(): express.Express {
           })
           .then(async (html) => {
             console.log('Update MetaTag html: ')
-            var urlRequest = "http://localhost:8081/api/v1/news/find?title="
+            var urlRequest = "http://localhost:8080/api/v1/news/find?title="
             const apiData = await fetchApiData(urlRequest + req.url.split("tin-tuc/")[1]);
             if (html) {
               try {

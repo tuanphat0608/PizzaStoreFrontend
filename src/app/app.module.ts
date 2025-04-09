@@ -6,20 +6,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-// Import MatSliderModule
 import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardModule } from './component/dash-board/dashboard.module';
 import { DataService } from "./core/services/data.services";
 import { httpInterceptorProviders } from "./interceptor";
-import { AdminModule } from './component/page-admin/admin.module';
+import { AdminModule } from './component/admin-page/admin.module';
 import {CustomCurrencyPipe} from "./share/pipes/custom_currency_pipe";
 import {CurrencyPipe} from "@angular/common";
 import {provideToastr, ToastrModule} from "ngx-toastr";
 import {PixelModule} from "@felipeclopes/ngx-pixel";
+import { HomePageModule } from './component/user-page/home-page/home-page.module';
+import { UserPageModule } from './component/user-page/user-page.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {PixelModule} from "@felipeclopes/ngx-pixel";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    DashboardModule,
+    UserPageModule,
     BrowserAnimationsModule,
     MatMenuModule,
     MatButtonModule,

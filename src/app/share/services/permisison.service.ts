@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { API, CORE_URL } from '../constant/api.constants';
 import { CoreUrl } from '../constant/url.constant';
-import { ProductResponseData } from './product.service';
 
 @Injectable({
   providedIn: 'root'

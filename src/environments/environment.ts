@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  baseLocalUrl: 'http://localhost:8081/api',
+  baseLocalUrl: 'http://localhost:8080/api',
   baseUrl: '/',
   baseHref:'/',
   apiVersion: 'v1',

@@ -13,11 +13,10 @@ import {BASE_URL} from './base-url-interceptor';
 import {TokenService} from '../auth';
 import {CoreUrl} from '../share/constant/url.constant';
 import {environment} from 'src/environments/environment';
-import {User} from "../component/page-admin/login/user.model";
-// @ts-ignore
+import {User} from "../component/admin-page/login/user.model";
+
 import AntPathMatcher from '@howiefh/ant-path-matcher';
 import {RouterConstants} from "../share/router-constants";
-import * as http from "http";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
