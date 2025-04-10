@@ -13,6 +13,7 @@ export class OrderService {
       params: {
         page: options.page,
         size: options.size,
+        sort: 'orderedDateTime,asc',
         status: status || OrderStatus.ALL
       }
     });

@@ -11,10 +11,10 @@
         <h3>{{ order.pizza.name }} - {{ order.pizza.size }} ({{ order.pizza.crust }})</h3>
         <p>{{ order.pizza.description }}</p>
         <p><strong>Price:</strong> ${{ order.pizza.price }}</p>
-        <mat-form-field appearance="outline" class="quantity-input">
-          <mat-label>Quantity</mat-label>
-          <input matInput type="number" [(ngModel)]="order.quantity" min="0">
-        </mat-form-field>
+
+        <button mat-stroked-button color="accent" class="quantity-input" (click)="openQuantityDialog(order, 'pizza')">
+          Quantity: {{ order.quantity || 0 }}
+        </button>
       </div>
     </div>
   </mat-tab>
@@ -26,10 +26,10 @@
         <h3>{{ order.drink.name }}</h3>
         <p>{{ order.drink.description }}</p>
         <p><strong>Price:</strong> ${{ order.drink.price }}</p>
-        <mat-form-field appearance="outline" class="quantity-input">
-          <mat-label>Quantity</mat-label>
-          <input matInput type="number" [(ngModel)]="order.quantity" min="0">
-        </mat-form-field>
+
+        <button mat-stroked-button color="accent" class="quantity-input" (click)="openQuantityDialog(order, 'drink')">
+          Quantity: {{ order.quantity || 0 }}
+        </button>
       </div>
     </div>
   </mat-tab>
@@ -37,6 +37,12 @@
   <!-- Tab 3: Payment and Delivery -->
   <mat-tab label="Payment and Delivery">
     <form #orderForm="ngForm" class="tab-content payment-form">
+
+      <!-- Index Column -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+      </ng-container>
 
       <mat-form-field appearance="outline" class="form-item">
         <mat-label>Name</mat-label>
@@ -55,14 +61,34 @@
 
       <div class="review-section full-width">
         <h4>Your Order:</h4>
-        <ul>
-          <ng-container *ngFor="let p of pizzaOrders">
-            <li *ngIf="p.quantity > 0">🍕 {{ p.pizza.name }} ({{ p.quantity }})</li>
+
+        <table mat-table [dataSource]="combinedOrders" class="mat-elevation-z1" multiTemplateDataRows>
+
+          <!-- Item Column -->
+          <ng-container matColumnDef="item">
+            <th mat-header-cell *matHeaderCellDef>Item</th>
+            <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
           </ng-container>
-          <ng-container *ngFor="let d of drinkOrders">
-            <li *ngIf="d.quantity > 0">🥤 {{ d.drink.name }} ({{ d.quantity }})</li>
+
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let element"> {{ element.quantity }} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
-        </ul>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let element"> ${{ element.price * element.quantity }} </td>
+            <td mat-footer-cell *matFooterCellDef> ${{ totalPrice }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
       </div>
 
       <div class="submit-button-wrapper full-width">

@@ -13,6 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { HomePageComponent } from './home-page.component';
 import { CustomCurrencyPipe } from 'src/app/share/pipes/custom_currency_pipe';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CustomCurrencyPipe } from 'src/app/share/pipes/custom_currency_pipe';
     MatProgressBarModule,
     MatTabsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule
   ],
   exports: [HomePageComponent],
   providers: [CustomCurrencyPipe]

@@ -1,0 +1,70 @@
+:host {
+    display: block;
+    background-color: #fff8f0;
+    padding: 20px;
+    border-radius: 12px;
+    min-width: 250px;
+    max-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dialog Title */
+h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #d32f2f;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dialog Content */
+mat-dialog-content {
+    text-align: center;
+
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    mat-form-field {
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 8px;
+
+        .mat-form-field-wrapper {
+            padding-bottom: 5px;
+        }
+
+        input {
+            text-align: center;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+/* Dialog Actions */
+mat-dialog-actions {
+    margin-top: 20px;
+
+    button {
+        font-weight: bold;
+        font-size: 1rem;
+        padding: 6px 16px;
+        border-radius: 8px;
+
+        &:first-child {
+            color: #555;
+        }
+
+        &:last-child {
+            background-color: #d32f2f;
+            color: white;
+
+            &:hover {
+                background-color: #b71c1c;
+            }
+        }
+    }
+}

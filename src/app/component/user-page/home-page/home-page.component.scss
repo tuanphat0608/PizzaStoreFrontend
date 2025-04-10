@@ -98,3 +98,8 @@ textarea.mat-input-element {
   min-height: 80px;
   resize: vertical;
 }
+
+* {
+  z-index: auto !important;
+  pointer-events: auto !important;
+}

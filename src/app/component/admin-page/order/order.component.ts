@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { OrderService } from './order.service';
 import * as moment from "moment/moment";
-import { OrderStatus } from 'src/app/core/common.enum';
+import { OrderStatus, Role } from 'src/app/core/common.enum';
 import { FoodOrder } from 'src/app/model/model';
 import { LoadingService } from '../common/services/loading.service';
 import { LocalStorageService } from 'src/app/share/services/storage.service';
@@ -19,7 +19,7 @@ import { LocalStorageService } from 'src/app/share/services/storage.service';
 })
 export class OrderComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'phoneNumber', 'address', 'price', 'createdTime', 'status', 'actions'];
+  displayedColumns: string[] = ['orderNumber', 'date', 'items', 'name', 'phoneNumber', 'price', 'actions'];
   public dataSource: MatTableDataSource<FoodOrder> =
     new MatTableDataSource<FoodOrder>([]);
   public totalItems: number = 0;
@@ -28,22 +28,46 @@ export class OrderComponent implements OnInit, AfterViewInit {
   public keySearch: string;
   statusList: OrderStatus[] = [];
   selectedStatus: string = '';
-  selectedOrderStatus: OrderStatus = OrderStatus.ALL
+  selectedOrderStatus: OrderStatus
   role: string = ''
   OrderStatus = OrderStatus;
   orderStatuses: string[] = Object.values(OrderStatus);
   constructor(private orderService: OrderService, private router: Router, private loader: LoadingService, private matDialog: MatDialog, private localStorageService: LocalStorageService,
-  ) { }
+  ) { 
+    
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit() {
+    const storedRole = localStorage.getItem('role')?.replace(/"/g, '') as Role;
+    if (Object.values(Role).includes(storedRole as Role)) {
+      this.role = storedRole as Role;
+    }
+    this.setStatusByRole();
+    console.log(this.role)
+    console.log(this.selectedOrderStatus)
     this.onInitOrderData(this.selectedOrderStatus);
-    this.role = this.localStorageService.get('role');
   }
 
+  setStatusByRole(): void {
+    switch (this.role) {
+      case Role.RECEPTIONIST:
+        this.selectedOrderStatus = OrderStatus.PENDING;
+        break;
+      case Role.CHEF:
+        this.selectedOrderStatus = OrderStatus.CONFIRMED;
+        break;
+      case Role.DELIVERY:
+        this.selectedOrderStatus = OrderStatus.COOKED;
+        break;
+      default:
+        this.selectedOrderStatus = OrderStatus.ALL;
+    }
+  }
+  
   onInitOrderData(status: OrderStatus) {
     const loader = this.loader.show();
     this.orderService
@@ -77,7 +101,11 @@ export class OrderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  protected readonly moment = moment;
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.onInitOrderData(this.selectedOrderStatus);
+  }
 
 
 }

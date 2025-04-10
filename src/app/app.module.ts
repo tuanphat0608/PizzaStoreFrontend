@@ -19,6 +19,7 @@ import {CurrencyPipe} from "@angular/common";
 import {provideToastr, ToastrModule} from "ngx-toastr";
 import {PixelModule} from "@felipeclopes/ngx-pixel";
 import { UserPageModule } from './component/user-page/user-page.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UserPageModule } from './component/user-page/user-page.module';
     UserPageModule,
     BrowserAnimationsModule,
     MatMenuModule,
+    MatTabsModule,
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
