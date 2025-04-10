@@ -1,0 +1,42 @@
+::ng-deep .mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
+  padding: 24px 32px;
+  max-width: 90vw;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+::ng-deep h1 {
+  margin: 0 0 16px 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #c62828;
+}
+
+::ng-deep p {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+}
+
+::ng-deep .mat-dialog-actions {
+  display: flex;
+  justify-content: center !important;
+  width: 100%;
+  padding: 0;
+}
+
+::ng-deep .mat-dialog-actions button {
+  min-width: 180px;
+  height: 48px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.25);
+}

@@ -7,6 +7,7 @@ import { LoadingService } from '../../admin-page/common/services/loading.service
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../admin-page/order/order.service';
 import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'home-page',
@@ -28,6 +29,7 @@ export class HomePageComponent implements OnInit {
   combinedOrders: { name: string; quantity: number; price: number }[] = [];
   totalPrice: number = 0;
   displayedColumns: string[] = ['index', 'item', 'quantity', 'price'];
+  selectedTabIndex = 0;
 
   constructor(private router: Router,
     private loader: LoadingService,
@@ -90,6 +92,17 @@ export class HomePageComponent implements OnInit {
         console.error('Failed to create order:', err);
       }
     });
+    setTimeout(() => {
+      // After success
+      this.dialog.open(SuccessDialogComponent, {
+        width: '500px',
+        height: 'auto',
+        panelClass: 'custom-dialog-container'
+      });
+
+      this.resetOrder();
+      this.selectedTabIndex = 0;
+    }, 500);
   }
 
   getPizzaOrder(pizza: Pizza): PizzaOrder {
@@ -100,7 +113,7 @@ export class HomePageComponent implements OnInit {
     }
     return order;
   }
-  
+
   getDrinkOrder(drink: Drink): DrinkOrder {
     let order = this.drinkOrders.find(do_ => do_.drink.id === drink.id);
     if (!order) {
@@ -109,7 +122,7 @@ export class HomePageComponent implements OnInit {
     }
     return order;
   }
-  
+
   updateOrderReview() {
     this.combinedOrders = [];
 
@@ -136,5 +149,12 @@ export class HomePageComponent implements OnInit {
     this.totalPrice = this.combinedOrders.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }
 
+  resetOrder() {
+    this.customerName = '';
+    this.customerPhone = '';
+    this.customerAddress = '';
+    this.pizzaOrders.forEach(po => po.quantity = 0);
+    this.drinkOrders.forEach(do_ => do_.quantity = 0);
+  }
 
 }

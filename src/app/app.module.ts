@@ -20,6 +20,7 @@ import {provideToastr, ToastrModule} from "ngx-toastr";
 import {PixelModule} from "@felipeclopes/ngx-pixel";
 import { UserPageModule } from './component/user-page/user-page.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     MatIconModule,
     MatSliderModule,
+    MatDialogModule,
     CarouselModule,
     AdminModule,
     PixelModule.forRoot({ enabled: true, pixelId: '1381905275860760' })
