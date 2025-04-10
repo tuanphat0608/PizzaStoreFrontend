@@ -7,7 +7,6 @@ import { LoadingService } from '../../admin-page/common/services/loading.service
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../admin-page/order/order.service';
 import { MatDialog } from '@angular/material/dialog';
-import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 
 @Component({
   selector: 'home-page',
@@ -43,29 +42,31 @@ export class HomePageComponent implements OnInit {
     this.getDrinks();
   }
 
-  getDrinks() {
-    const loader = this.loader.show();
-    this.productService
-      .getDrinks({
-        page: this.pageIndex,
-        size: this.pageSize,
-      })
-      .pipe(finalize(() => this.loader.hide(loader)))
-      .subscribe((response: any) => {
-        this.availableDrinks = response?.content || [];
-      });
-  }
-
   getPizzas() {
     const loader = this.loader.show();
     this.productService
-      .getPizzas({
-        page: this.pageIndex,
-        size: this.pageSize,
-      })
+      .getPizzas({ page: this.pageIndex, size: this.pageSize })
       .pipe(finalize(() => this.loader.hide(loader)))
       .subscribe((response: any) => {
         this.availablePizzas = response?.content || [];
+        this.pizzaOrders = this.availablePizzas.map(pizza => ({
+          pizza,
+          quantity: 0,
+        }));
+      });
+  }
+
+  getDrinks() {
+    const loader = this.loader.show();
+    this.productService
+      .getDrinks({ page: this.pageIndex, size: this.pageSize })
+      .pipe(finalize(() => this.loader.hide(loader)))
+      .subscribe((response: any) => {
+        this.availableDrinks = response?.content || [];
+        this.drinkOrders = this.availableDrinks.map(drink => ({
+          drink,
+          quantity: 0,
+        }));
       });
   }
 
@@ -75,8 +76,8 @@ export class HomePageComponent implements OnInit {
 
     const order: FoodOrder = {
       name: this.customerName,
-      phoneNumber: this.customerPhone,
-      deliveryAddress: this.customerAddress,
+      phone_number: this.customerPhone,
+      delivery_address: this.customerAddress,
       pizzas: filteredPizzaOrders,
       drinks: filteredDrinkOrders
     };
@@ -91,26 +92,24 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  openQuantityDialog(item: PizzaOrder | DrinkOrder, type: 'pizza' | 'drink') {
-    const itemName = type === 'pizza' ? (item as PizzaOrder).pizza.name : (item as DrinkOrder).drink.name;
-
-    const dialogRef = this.dialog.open(QuantityDialogComponent, {
-      width: '250px',
-      data: {
-        itemName,
-        quantity: item.quantity || 0
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined && typeof result === 'number') {
-        item.quantity = result;
-        this.updateOrderReview(); // 👈 update total & combined list
-      }
-    });
+  getPizzaOrder(pizza: Pizza): PizzaOrder {
+    let order = this.pizzaOrders.find(po => po.pizza.id === pizza.id);
+    if (!order) {
+      order = { pizza, quantity: 0 };
+      this.pizzaOrders.push(order);
+    }
+    return order;
   }
-
-
+  
+  getDrinkOrder(drink: Drink): DrinkOrder {
+    let order = this.drinkOrders.find(do_ => do_.drink.id === drink.id);
+    if (!order) {
+      order = { drink, quantity: 0 };
+      this.drinkOrders.push(order);
+    }
+    return order;
+  }
+  
   updateOrderReview() {
     this.combinedOrders = [];
 

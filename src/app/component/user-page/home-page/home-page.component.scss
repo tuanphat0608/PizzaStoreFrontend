@@ -9,16 +9,17 @@
 .store-header {
   text-align: center;
   margin: 30px auto;
-  padding: 20px;
-  max-width: 900px;
+  padding: 24px;
+  max-width: 95vw;
   border: 3px solid #d32f2f;
   border-radius: 12px;
   background-color: #fff3e0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
   h1 {
     margin: 0;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    font-weight: bold;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #d32f2f;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -27,22 +28,22 @@
 
 /* Tab Group Container */
 .pizza-tab-group {
-  border: 2px solid #e0e0e0;
+  border: 3px solid #d32f2f;
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
   margin: 0 auto 50px;
-  max-width: 900px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 95vw;
+  background-color: #fff3e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Common Tab Content Style */
 .tab-content {
   padding: 24px;
   margin-top: 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #e57373;
   border-radius: 12px;
-  background-color: #fafafa;
+  background-color: #fffdf7;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -50,10 +51,10 @@
 .item-card {
   margin-bottom: 24px;
   padding: 16px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 /* Quantity Input */
@@ -99,7 +100,47 @@ textarea.mat-input-element {
   resize: vertical;
 }
 
-* {
-  z-index: auto !important;
-  pointer-events: auto !important;
+/* Grid for pizza/drink items */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  gap: 16px;
+  padding: 16px;
+}
+
+.grid-item {
+  background: #fff;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #d32f2f;
+    margin: 8px 0 4px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 8px;
+  }
+
+  .price {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
 }

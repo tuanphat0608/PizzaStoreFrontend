@@ -4,32 +4,36 @@
 
 <mat-tab-group class="pizza-tab-group">
 
-  <!-- Tab 1: Choose Pizza -->
-  <mat-tab label="Choose Pizza">
-    <div class="tab-content">
-      <div *ngFor="let order of pizzaOrders" class="item-card">
-        <h3>{{ order.pizza.name }} - {{ order.pizza.size }} ({{ order.pizza.crust }})</h3>
-        <p>{{ order.pizza.description }}</p>
-        <p><strong>Price:</strong> ${{ order.pizza.price }}</p>
+  <mat-tab label="Choose Pizzas">
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let pizza of availablePizzas">
+        <img [src]="pizza.image_url" alt="{{ pizza.name }}" />
+        <h3>{{ pizza.name }}</h3>
+        <p>{{ pizza.description }}</p>
+        <p>${{ pizza.price }}</p>
 
-        <button mat-stroked-button color="accent" class="quantity-input" (click)="openQuantityDialog(order, 'pizza')">
-          Quantity: {{ order.quantity || 0 }}
-        </button>
+        <mat-form-field appearance="outline" class="quantity-field">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" min="0"
+            [(ngModel)]="getPizzaOrder(pizza).quantity">
+        </mat-form-field>
       </div>
     </div>
   </mat-tab>
 
-  <!-- Tab 2: Choose Drink -->
-  <mat-tab label="Choose Drink">
-    <div class="tab-content">
-      <div *ngFor="let order of drinkOrders" class="item-card">
-        <h3>{{ order.drink.name }}</h3>
-        <p>{{ order.drink.description }}</p>
-        <p><strong>Price:</strong> ${{ order.drink.price }}</p>
+  <mat-tab label="Choose Drinks">
+    <div class="grid-container">
+      <div class="grid-item" *ngFor="let drink of availableDrinks">
+        <img [src]="drink.image_url" alt="{{ drink.name }}" />
+        <h3>{{ drink.name }}</h3>
+        <p>{{ drink.description }}</p>
+        <p>${{ drink.price }}</p>
 
-        <button mat-stroked-button color="accent" class="quantity-input" (click)="openQuantityDialog(order, 'drink')">
-          Quantity: {{ order.quantity || 0 }}
-        </button>
+        <mat-form-field appearance="outline" class="quantity-field">
+          <mat-label>Quantity</mat-label>
+          <input matInput type="number" min="0"
+            [(ngModel)]="getDrinkOrder(drink).quantity">
+        </mat-form-field>
       </div>
     </div>
   </mat-tab>
@@ -37,12 +41,6 @@
   <!-- Tab 3: Payment and Delivery -->
   <mat-tab label="Payment and Delivery">
     <form #orderForm="ngForm" class="tab-content payment-form">
-
-      <!-- Index Column -->
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
-      </ng-container>
 
       <mat-form-field appearance="outline" class="form-item">
         <mat-label>Name</mat-label>
@@ -61,34 +59,14 @@
 
       <div class="review-section full-width">
         <h4>Your Order:</h4>
-
-        <table mat-table [dataSource]="combinedOrders" class="mat-elevation-z1" multiTemplateDataRows>
-
-          <!-- Item Column -->
-          <ng-container matColumnDef="item">
-            <th mat-header-cell *matHeaderCellDef>Item</th>
-            <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-            <td mat-footer-cell *matFooterCellDef> Total </td>
+        <ul>
+          <ng-container *ngFor="let p of pizzaOrders">
+            <li *ngIf="p.quantity > 0">🍕 {{ p.pizza.name }} ({{ p.quantity }})</li>
           </ng-container>
-
-          <!-- Quantity Column -->
-          <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef>Quantity</th>
-            <td mat-cell *matCellDef="let element"> {{ element.quantity }} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
+          <ng-container *ngFor="let d of drinkOrders">
+            <li *ngIf="d.quantity > 0">🥤 {{ d.drink.name }} ({{ d.quantity }})</li>
           </ng-container>
-
-          <!-- Price Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Price</th>
-            <td mat-cell *matCellDef="let element"> ${{ element.price * element.quantity }} </td>
-            <td mat-footer-cell *matFooterCellDef> ${{ totalPrice }} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-        </table>
+        </ul>
       </div>
 
       <div class="submit-button-wrapper full-width">

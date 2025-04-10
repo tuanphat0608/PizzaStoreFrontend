@@ -6,14 +6,16 @@ export interface Pizza{
   description: string,
   crust: Crust,
   size: Size,
-  price: number
+  price: number,
+  image_url: string
 }
 
 export interface Drink{
   id: string,
   name: string,
   description: string,
-  price: number
+  price: number,
+  image_url: string
 }
 
 export interface DrinkOrder{
@@ -30,8 +32,8 @@ export interface PizzaOrder{
 export interface FoodOrder{
   id?: string,
   name: string,
-  phoneNumber: string,
-  deliveryAddress: string,
+  phone_number: string,
+  delivery_address: string,
   pizzas: PizzaOrder[],
   drinks: DrinkOrder[],
   status?: OrderStatus,
