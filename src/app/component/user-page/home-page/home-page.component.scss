@@ -71,13 +71,16 @@
   align-items: start;
   max-width: 900px;
   margin: 0 auto;
+  padding: 16px;
 
   .form-item {
     width: 100%;
+    margin-bottom: 16px;
   }
 
   .full-width {
     grid-column: span 2;
+    width: 100%;
   }
 
   .review-section {
@@ -117,12 +120,17 @@ textarea.mat-input-element {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; // Ensures all items match in height
+
   img {
-    width: 100%;
-    max-height: 150px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 8px;
+    margin: 0 auto 8px;
   }
 
   h3 {
@@ -136,6 +144,7 @@ textarea.mat-input-element {
     font-size: 0.9rem;
     color: #555;
     margin: 0 0 8px;
+    min-height: 38px; // Helps maintain consistent spacing for varied text
   }
 
   .price {
@@ -143,4 +152,14 @@ textarea.mat-input-element {
     color: #333;
     margin-bottom: 8px;
   }
+
+  .quantity-input {
+    margin-top: auto; // Pushes the input to the bottom of the card
+    width: 100%;
+  }
+}
+
+/* Fix tab content overlapping with tab labels */
+::ng-deep .mat-mdc-tab-body-content {
+  padding: 16px;
 }

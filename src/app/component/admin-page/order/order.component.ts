@@ -10,6 +10,7 @@ import { OrderStatus, Role } from 'src/app/core/common.enum';
 import { FoodOrder } from 'src/app/model/model';
 import { LoadingService } from '../common/services/loading.service';
 import { LocalStorageService } from 'src/app/share/services/storage.service';
+import { PermisisonService } from 'src/app/share/services/permisison.service';
 
 @Component({
   selector: 'order-list',
@@ -32,25 +33,66 @@ export class OrderComponent implements OnInit, AfterViewInit {
   role: string = ''
   OrderStatus = OrderStatus;
   orderStatuses: string[] = Object.values(OrderStatus);
-  constructor(private orderService: OrderService, private router: Router, private loader: LoadingService, private matDialog: MatDialog, private localStorageService: LocalStorageService,
-  ) { 
-    
+  constructor(
+    private orderService: OrderService, 
+    private router: Router, 
+    private loader: LoadingService, 
+    private matDialog: MatDialog, 
+    private localStorageService: LocalStorageService,
+    private authService: PermisisonService) {
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
+
   ngOnInit() {
+    const userDataRaw = localStorage.getItem('userData');
+    if (!userDataRaw) {
+      this.router.navigate(['/admin/login']);
+      return;
+    }
+  
+    let userData: any;
+    try {
+      userData = JSON.parse(userDataRaw);
+    } catch (e) {
+      console.error('Failed to parse userData from localStorage:', e);
+      this.router.navigate(['/admin/login']);
+      return;
+    }
+  
+    const token = userData?._token;
+    if (!token) {
+      this.router.navigate(['/admin/login']);
+      return;
+    }
+  
+    this.authService.checkToken(token).subscribe({
+      next: (isValid: boolean) => {
+        if (!isValid) {
+          this.router.navigate(['/admin/login']);
+        } else {
+          this.initializeComponent();
+        }
+      },
+      error: (err) => {
+        console.error('Token validation failed:', err);
+        this.router.navigate(['/admin/login']);
+      }
+    });
+  }
+  
+
+  private initializeComponent(): void {
     const storedRole = localStorage.getItem('role')?.replace(/"/g, '') as Role;
     if (Object.values(Role).includes(storedRole as Role)) {
       this.role = storedRole as Role;
     }
     this.setStatusByRole();
-    console.log(this.role)
-    console.log(this.selectedOrderStatus)
     this.onInitOrderData(this.selectedOrderStatus);
-  }
+  }  
 
   setStatusByRole(): void {
     switch (this.role) {
@@ -67,7 +109,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
         this.selectedOrderStatus = OrderStatus.ALL;
     }
   }
-  
+
   onInitOrderData(status: OrderStatus) {
     const loader = this.loader.show();
     this.orderService
@@ -106,6 +148,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
     this.pageSize = event.pageSize;
     this.onInitOrderData(this.selectedOrderStatus);
   }
+
 
 
 }

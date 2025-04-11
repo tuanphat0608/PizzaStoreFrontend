@@ -52,11 +52,11 @@ export class LoginComponent {
               this.authService.userRole.next(res.role)
               this.router.navigate([RouterConstants.ADMIN, RouterConstants.ORDER_PAGE])
             })
-            this.toastr.success('Đăng nhập thành công')
+            this.toastr.success('Login Success')
           },
           error: errorMessage => {
             this.setForm();
-            this.toastr.error('Sai tài khoản hoặc mật khẩu')
+            this.toastr.error('Invalid credentials')
 
           }
         }

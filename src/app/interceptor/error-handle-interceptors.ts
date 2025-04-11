@@ -17,43 +17,14 @@ export enum STATUS_ERROR_CODE {
 @Injectable()
 export class ErrorHandleInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService,private router: Router) { }
+  constructor(private toastr: ToastrService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError((error: HttpErrorResponse) => this.handleError(error)));
   }
 
   private handleError(error: HttpErrorResponse) {
-    // switch (error.status) {
-    //   case STATUS_ERROR_CODE.BAD_REQUEST:
-    //     this.toastr.error('Lỗi');
-    //     break;
-    //   case STATUS_ERROR_CODE.UNAHTHORIZED:
-    //     this.toastr.error('Lỗi');
-    //     break;
-    //   case STATUS_ERROR_CODE.FORBIDDEN:
-    //     this.toastr.error('Lỗi');
-    //     break;
-    //   case STATUS_ERROR_CODE.NOT_FOUND:
-    //     this.toastr.error('Lỗi');
-    //     localStorage.setItem('errorStatus', error.status.toString());
-    //     this.router.navigate(['/thong-bao/khong-tim-thay-trang']);
-    //     break;
-    //   case STATUS_ERROR_CODE.INTERAL_SERVER_ERROR:
-    //     this.toastr.error('Lỗi');
-    //     localStorage.setItem('errorStatus', error.status.toString());
-    //     this.router.navigate(['/thong-bao/khong-tim-thay-trang']);
-    //     break;
-    //   case STATUS_ERROR_CODE.SERVER_DOWN:
-    //     this.toastr.error('Lỗi');
-    //     break;
-    //   default:
-    //     this.toastr.error('Lỗi');
-    //     break;
-    // }
-    //
-    // return throwError(() => error);
-    this.toastr.error('Lỗi');
+    this.toastr.error('Error');
     localStorage.setItem('errorStatus', error.status.toString());
     if ([STATUS_ERROR_CODE.NOT_FOUND, STATUS_ERROR_CODE.INTERAL_SERVER_ERROR].includes(error.status)) {
       // this.router.navigate(['/thong-bao/khong-tim-thay-trang']);
@@ -61,7 +32,7 @@ export class ErrorHandleInterceptor implements HttpInterceptor {
     return throwError(() => error);
   }
   private handleErrorRefactor(error: HttpErrorResponse) {
-    this.toastr.error('Lỗi');
+    this.toastr.error('Error');
     localStorage.setItem('errorStatus', error.status.toString());
     if ([STATUS_ERROR_CODE.NOT_FOUND].includes(error.status)) {
       // this.router.navigate(['/thong-bao/khong-tim-thay-trang']);
