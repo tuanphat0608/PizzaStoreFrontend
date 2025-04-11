@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { RouterConstants } from './share/router-constants';
 import { HomePageComponent } from './component/user-page/home-page/home-page.component';
 import { UserPageComponent } from './component/user-page/user-page.component';
+import { AdminEntryComponent } from './component/admin-page/admin-entry/admin-entry.component';
 
 const routes: Routes = [
 
   {
     path: RouterConstants.ADMIN,
-    loadChildren: () =>
-      import('./component/admin-page/admin.module').then((m) => m.AdminModule),
+    component: AdminEntryComponent
   },
   {
     path: '',

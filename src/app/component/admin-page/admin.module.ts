@@ -6,6 +6,7 @@ import {MaterialModule} from './material.module';
 import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { AdminEntryComponent } from './admin-entry/admin-entry.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     AdminRoutingModule,
     MaterialModule
   ],
-  declarations: [OrderComponent, LoginComponent],
+  declarations: [OrderComponent, LoginComponent, AdminEntryComponent],
   exports: [],
   providers: [
     {
